@@ -1,4 +1,4 @@
-package main.Entities;
+package Entities;
 
 import main.GamePanel;
 import main.KeyboardHandler;
