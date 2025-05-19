@@ -17,6 +17,11 @@ public class SpielDrawer {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
 
+        //Spiel Objecte set up
+        gamePanel.setUpGame();
+
+
+        //Game start
         gamePanel.startGameThread();
     }
 }

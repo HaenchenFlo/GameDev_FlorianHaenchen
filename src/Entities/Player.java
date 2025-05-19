@@ -23,10 +23,10 @@ public class Player extends Entity {
         screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
         hitBox = new Rectangle();
-        hitBox.x = 16;
+        hitBox.x = 32;
         hitBox.y = 32;
-        hitBox.width = 64;
-        hitBox.height = 64;
+        hitBox.width = 32;
+        hitBox.height = 48;
 
         setDefaultValues();
 
