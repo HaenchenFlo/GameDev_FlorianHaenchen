@@ -13,10 +13,17 @@ public class GamePanel extends JPanel implements Runnable{
     final int skalierung = 3;
 
     public final int tileSize = originalTileSize * skalierung; //48x48 tile
-    final int maxScreenCol = 12; // 4:3 Bild
-    final int maxScreenRow = 10;
-    final int screenWidth = tileSize * maxScreenCol;    //768 x 576 pixel
-    final int screenHeight = tileSize * maxScreenRow;
+    public final int maxScreenCol = 16; // 4:3 Bild
+    public final int maxScreenRow = 10;
+    public final int screenWidth = tileSize * maxScreenCol;    //768 x 576 pixel
+    public final int screenHeight = tileSize * maxScreenRow;
+
+    //World Settings
+    public final int maxWorldCol = 50;
+    public final int maxWorldRow = 50;
+    public final int worldWidth = tileSize * maxWorldCol;
+    public final int worldHeight = tileSize * maxWorldRow;
+
 
     //FPS
     int FPS = 60;
@@ -25,7 +32,7 @@ public class GamePanel extends JPanel implements Runnable{
     TileManager tileM = new TileManager(this);
     KeyboardHandler keyH = new KeyboardHandler();
     Thread gameThread;
-    Player player = new Player(this, keyH);
+    public Player player = new Player(this, keyH);
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
@@ -91,39 +98,3 @@ public class GamePanel extends JPanel implements Runnable{
         g2.dispose();
     }
 }
-
-
-
-
-
-//Sleep methode statt delta überlegen ??? ist ein @Override
-/*public void run() {
-
-        double drawInterval = (double) 1000000000 /FPS; //0.01666 sekunden
-        double nextDrawTime = System.nanoTime() + drawInterval;
-
-        while(gameThread != null) {
-            //Update: Spieler position updates
-            update();
-
-            //Draw: ScreenDrawer
-            repaint();
-
-            try {
-                double remainingTime = nextDrawTime - System.nanoTime();
-                remainingTime = remainingTime/1000000;
-
-                if(remainingTime < 0) {
-                    remainingTime = 0;
-                }
-
-                Thread.sleep((long) remainingTime);
-
-                nextDrawTime += drawInterval;
-
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-    }*/
