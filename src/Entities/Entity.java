@@ -15,6 +15,10 @@ public class Entity {
     public int spriteCounter = 0;
     public int spriteNumber = 1;
 
+
+    //Spieler Hitbox
     public Rectangle hitBox;
+    //Object Hitbox checker
+    public int hitBoxDefaultX, hitBoxDefaultY;
     public boolean collisionOn = false;
 }
