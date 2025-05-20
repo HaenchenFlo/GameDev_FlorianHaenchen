@@ -50,7 +50,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void setUpGame() {
         oSetter.setObject();
 
-        /*playMusic(0);*/ //Einschalten wenn musik für hintergrund
+        playMusic(0); //Einschalten wenn musik für hintergrund
 
     }
 
