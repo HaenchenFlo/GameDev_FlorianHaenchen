@@ -33,6 +33,8 @@ public class Sound {
 
     public void play() {
 
+        FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN); //sound leise ggf neue methoden zum sound selber einstellen!!!
+        gainControl.setValue(-15.0f);
         clip.start();
 
     }
