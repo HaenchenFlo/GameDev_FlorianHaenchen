@@ -7,5 +7,12 @@
         <language minSize="48" name="Java" />
       </Languages>
     </inspection_tool>
+    <inspection_tool class="ForCanBeForeach" enabled="true" level="INFORMATION" enabled_by_default="true">
+      <option name="REPORT_INDEXED_LOOP" value="true" />
+      <option name="ignoreUntypedCollections" value="false" />
+    </inspection_tool>
+    <inspection_tool class="PointlessBooleanExpression" enabled="true" level="INFORMATION" enabled_by_default="true">
+      <option name="m_ignoreExpressionsContainingConstants" value="true" />
+    </inspection_tool>
   </profile>
 </component>

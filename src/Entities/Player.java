@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Player extends Entity {
     GamePanel gp;
@@ -45,22 +46,22 @@ public class Player extends Entity {
         direction = "down";
 
     }
-    @SuppressWarnings("DataFlowIssue")
+
     public void getPlayerImage() {
 
         try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("/player/alec_up_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/player/alec_up_1.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/player/alec_down_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/player/alec_down_1.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/player/alec_left_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/player/alec_left_1.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/player/alec_right_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/player/alec_right_2.png"));
+            up1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/alec_up_1.png")));
+            up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/alec_up_1.png")));
+            down1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/alec_down_1.png")));
+            down2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/alec_down_1.png")));
+            left1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/alec_left_1.png")));
+            left2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/alec_left_1.png")));
+            right1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/alec_right_1.png")));
+            right2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/alec_right_2.png")));
 
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException _) {
+
         }
     }
 
@@ -123,16 +124,23 @@ public class Player extends Entity {
 
             switch (objectname) {
                 case "Key":
+                    gp.soundEffect(1);
                     hasKey++;
                     gp.obj[i] = null;
                     System.out.println("Du hast " + hasKey + " Schlüssel!");
                     break;
                 case "Door":
                     if(hasKey > 0) {
+                        gp.soundEffect(3);
                         gp.obj[i] = null;
                         hasKey--;
                     }
                     System.out.println("Du hast " + hasKey + " Schlüssel!");
+                    break;
+                case "Boots":
+                    gp.soundEffect(2);
+                    speed += 2;
+                    gp.obj[i] = null;
                     break;
             }
         }

@@ -53,8 +53,8 @@ public class TileManager {
             tile[5].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/sand.png")));
 
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException _) {
+
         }
     }
 
@@ -62,6 +62,7 @@ public class TileManager {
 
         try {
             InputStream is = getClass().getResourceAsStream(filePath);
+            assert is != null;
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             int col = 0;
@@ -87,7 +88,7 @@ public class TileManager {
                 }
             }
             br.close();
-        } catch (Exception e) {
+        } catch (Exception _) {
 
         }
     }

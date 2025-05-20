@@ -1,7 +1,6 @@
 package main;
 
 import Entities.Player;
-import object.OBJ_Key;
 import object.SuperObject;
 import tile.TileManager;
 
@@ -23,19 +22,19 @@ public class GamePanel extends JPanel implements Runnable{
     //World Settings
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
-    /*public final int worldWidth = tileSize * maxWorldCol;
-    public final int worldHeight = tileSize * maxWorldRow;*/
-
 
     //FPS
     int FPS = 120;
 
-
+    //System
     TileManager tileM = new TileManager(this);
     KeyboardHandler keyH = new KeyboardHandler();
-    Thread gameThread;
+    Sound sound = new Sound();
     public CollisionCheck cCheck = new CollisionCheck(this);
     public ObjectHandler oSetter = new ObjectHandler(this);
+    Thread gameThread;
+
+    //Entity und Objecte
     public Player player = new Player(this, keyH);
     public SuperObject[] obj = new SuperObject[10];
 
@@ -49,6 +48,9 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void setUpGame() {
         oSetter.setObject();
+
+        /*playMusic(0);*/ //Einschalten wenn musik für hintergrund
+
     }
 
     public void startGameThread() {
@@ -115,5 +117,26 @@ public class GamePanel extends JPanel implements Runnable{
         player.draw(g2);
 
         g2.dispose();
+    }
+
+    public void playMusic(int i) {
+
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+
+    }
+
+    public void stopMusic() {
+
+        sound.stop();
+
+    }
+
+    public void soundEffect(int i) {
+
+        sound.setFile(i);
+        sound.play();
+
     }
 }
