@@ -2,25 +2,23 @@ package Entities;
 
 import main.GamePanel;
 import main.KeyboardHandler;
-import main.Utility;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Objects;
 
 public class Player extends Entity {
-    GamePanel gp;
     KeyboardHandler keyH;
 
     public final int screenX;
     public final int screenY;
 
-    public int hasKey = 0;
+    /*public int hasKey = 0;*/
     int standCounter = 0;
 
     public Player(GamePanel gp, KeyboardHandler keyboardHandler) {
-        this.gp = gp;
+
+        super(gp);
+
         this.keyH = keyboardHandler;
 
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
@@ -49,34 +47,20 @@ public class Player extends Entity {
     }
 
     public void getPlayerImage() {
-        up1 = setUp("player_up1");
-        up2 = setUp("player_up2");
-        up3 = setUp("player_up3");
-        down1 = setUp("player_down1");
-        down2 = setUp("player_down2");
-        down3 = setUp("player_down3");
-        left1 = setUp("player_left1");
-        left2 = setUp("player_left2");
-        left3 = setUp("player_left3");
-        right1 = setUp("player_right1");
-        right2 = setUp("player_right2");
-        right3 = setUp("player_right3");
+        up1 = setUp("/player/player_up1");
+        up2 = setUp("/player/player_up2");
+        up3 = setUp("/player/player_up3");
+        down1 = setUp("/player/player_down1");
+        down2 = setUp("/player/player_down2");
+        down3 = setUp("/player/player_down3");
+        left1 = setUp("/player/player_left1");
+        left2 = setUp("/player/player_left2");
+        left3 = setUp("/player/player_left3");
+        right1 = setUp("/player/player_right1");
+        right2 = setUp("/player/player_right2");
+        right3 = setUp("/player/player_right3");
     }
 
-    public BufferedImage setUp(String imageName) {
-        Utility uTool = new Utility();
-        BufferedImage image;
-        BufferedImage scaledImage = null;
-
-        try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/" + imageName + ".png")));
-            scaledImage = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-        } catch (Exception _) {
-
-        }
-
-        return scaledImage;
-    }
 
     public void update() {
         boolean moving = false;
@@ -140,37 +124,7 @@ public class Player extends Entity {
 
     public void pickup(int i) {
         if(i != 999) {
-            String objectname = gp.obj[i].name;
 
-            switch (objectname) {
-                case "Key":
-                    gp.soundEffect(1);
-                    hasKey++;
-                    gp.obj[i] = null;
-                    gp.ui.showMessage("Du hast ein Schlüssel!");
-                    break;
-                case "Door":
-                    if(hasKey > 0) {
-                        gp.soundEffect(3);
-                        gp.obj[i] = null;
-                        hasKey--;
-                        gp.ui.showMessage("Du hast eine Tür geöffnet!");
-                    } else {
-                        gp.ui.showMessage("Du benötigst einen Schlüssel");
-                    }
-                    break;
-                case "Boots":
-                    gp.soundEffect(2);
-                    speed += 2;
-                    gp.obj[i] = null;
-                    gp.ui.showMessage("SpeedUP!");
-                    break;
-                case "Chest":
-                    gp.ui.gameFinished = true;
-                    gp.stopMusic();
-                    gp.soundEffect(4);
-                    break;
-            }
         }
     }
 

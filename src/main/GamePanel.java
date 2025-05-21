@@ -1,5 +1,6 @@
 package main;
 
+import Entities.Entity;
 import Entities.Player;
 import object.SuperObject;
 import tile.TileManager;
@@ -28,18 +29,28 @@ public class GamePanel extends JPanel implements Runnable{
 
     //System
     TileManager tileM = new TileManager(this);
-    KeyboardHandler keyH = new KeyboardHandler();
+    KeyboardHandler keyH = new KeyboardHandler(this);
     Sound music = new Sound();
     Sound se = new Sound();
     public CollisionCheck cCheck = new CollisionCheck(this);
     public ObjectHandler oSetter = new ObjectHandler(this);
+
     //UI
     public UI ui = new UI(this);
     Thread gameThread;
 
     //Entity und Objecte
     public Player player = new Player(this, keyH);
-    public SuperObject[] obj = new SuperObject[10]; // erhöhen für mehr obj
+    public SuperObject[] obj = new SuperObject[10];// erhöhen für mehr obj
+    public Entity[] npc = new Entity[10];
+
+    //Game State
+
+    public int gameState;
+    public final int playState = 1;
+    public final int pauseState = 2;
+
+
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
@@ -51,8 +62,9 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void setUpGame() {
         oSetter.setObject();
-
+        oSetter.setNpc();
         playMusic(0); //Einschalten wenn musik für hintergrund
+        gameState = playState;
 
     }
 
@@ -97,7 +109,20 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void update() {
-        player.update();
+
+        if(gameState == playState) {
+            player.update();
+
+            for(int i = 0; i < npc.length; i++) {
+                if(npc[i] != null) {
+                    npc[i].update();
+                }
+            }
+        }
+
+        if(gameState == pauseState) {
+            //pausieren
+        }
     }
 
     public void paintComponent(Graphics g) {
@@ -116,6 +141,13 @@ public class GamePanel extends JPanel implements Runnable{
         for(int i = 0; i < obj.length; i++) {
             if(obj[i] != null) { //gegen Nullpointer
                 obj[i].draw(g2, this);
+            }
+        }
+
+        //NPC
+        for(int i = 0; i < npc.length; i++) {
+            if(npc[i] != null) {
+                npc[i].draw(g2);
             }
         }
 
