@@ -2,11 +2,11 @@ package Entities;
 
 import main.GamePanel;
 import main.KeyboardHandler;
+import main.Utility;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.Objects;
 
 public class Player extends Entity {
@@ -49,21 +49,29 @@ public class Player extends Entity {
     }
 
     public void getPlayerImage() {
+        up1 = setUp("alec_up_1");
+        up2 = setUp("alec_up_1");
+        down1 = setUp("alec_down_1");
+        down2 = setUp("alec_down_1");
+        left1 = setUp("alec_left_1");
+        left2 = setUp("alec_left_1");
+        right1 = setUp("alec_right_1");
+        right2 = setUp("alec_right_2");
+    }
+
+    public BufferedImage setUp(String imageName) {
+        Utility uTool = new Utility();
+        BufferedImage image;
+        BufferedImage scaledImage = null;
 
         try {
-            up1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/alec_up_1.png")));
-            up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/alec_up_1.png")));
-            down1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/alec_down_1.png")));
-            down2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/alec_down_1.png")));
-            left1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/alec_left_1.png")));
-            left2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/alec_left_1.png")));
-            right1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/alec_right_1.png")));
-            right2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/alec_right_2.png")));
-
-
-        } catch (IOException _) {
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/" + imageName + ".png")));
+            scaledImage = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+        } catch (Exception _) {
 
         }
+
+        return scaledImage;
     }
 
     public void update() {

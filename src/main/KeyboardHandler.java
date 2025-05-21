@@ -7,6 +7,8 @@ public class KeyboardHandler implements KeyListener {
 
     public boolean upPressed, downPressed, leftPressed,rightPressed;
 
+    boolean checkDrawTime = false;
+
     @Override
     public void keyTyped(KeyEvent e) {
     }
@@ -51,6 +53,16 @@ public class KeyboardHandler implements KeyListener {
 
         if(code == KeyEvent.VK_D) {
             rightPressed = false;
+        }
+
+        //debug wie lange zum draw von frames und tiles
+        // test1: 60000 - 160000;
+        if(code == KeyEvent.VK_T) {
+            if(checkDrawTime == false) {
+                checkDrawTime = true;
+            } else if (checkDrawTime == true) {
+                checkDrawTime = false;
+            }
         }
 
     }
