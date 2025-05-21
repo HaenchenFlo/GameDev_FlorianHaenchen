@@ -75,64 +75,61 @@ public class Player extends Entity {
     }
 
     public void update() {
+        boolean moving = false;
 
-        if(keyH.upPressed  || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
-            if(keyH.upPressed) {
-                direction = "up";
-            } else if (keyH.downPressed) {
-                direction = "down";
-            } else if (keyH.rightPressed) {
-                direction = "right";
-            } else if (keyH.leftPressed) {
-                direction = "left";
-            }
+        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
 
-            //Tile Collision checken
+            // Setze Richtung für Animation
+            if (keyH.upPressed) direction = "up";
+            if (keyH.downPressed) direction = "down";
+            if (keyH.leftPressed) direction = "left";
+            if (keyH.rightPressed) direction = "right";
+
+            // Collision prüfen
             collisionOn = false;
             gp.cCheck.checkTile(this);
-
-            //Object Collision
             int objIndex = gp.cCheck.checkObject(this, true);
             pickup(objIndex);
 
-            //wenn collision false - kann sich spieler bewegen
-            if(collisionOn == false) {
-                switch (direction) {
-                    case ("up"):
-                        worldY -= speed;
-                        break;
-                    case ("down"):
-                        worldY += speed;
-                        break;
-                    case ("left"):
-                        worldX -= speed;
-                        break;
-                    case ("right"):
-                        worldX += speed;
-                        break;
+            // Bewegung
+            if (!collisionOn) {
+                int dx = 0;
+                int dy = 0;
 
+                if (keyH.upPressed) dy -= 1;
+                if (keyH.downPressed) dy += 1;
+                if (keyH.leftPressed) dx -= 1;
+                if (keyH.rightPressed) dx += 1;
+
+                // Diagonal normalisieren
+                if (dx != 0 && dy != 0) {
+                    worldX += (int) (dx * (speed / Math.sqrt(2)));
+                    worldY += (int) (dy * (speed / Math.sqrt(2)));
+                } else {
+                    worldX += dx * speed;
+                    worldY += dy * speed;
                 }
+
+                moving = true;
             }
 
-            spriteCounter++;
-
-            if(spriteCounter > 20) {
-                if(spriteNumber == 1) {
-                    spriteNumber = 2;
-                } else if (spriteNumber == 2) {
-                    spriteNumber = 1;
+            // Animation
+            if (moving) {
+                spriteCounter++;
+                if (spriteCounter > 20) {
+                    spriteNumber = spriteNumber == 1 ? 2 : 1;
+                    spriteCounter = 0;
                 }
-                spriteCounter = 0;
             }
         } else {
             standCounter++;
-
-            if(standCounter == 30) {
-                spriteNumber = 1;// default animation beim Stehen
+            if (standCounter == 30) {
+                spriteNumber = 1;
                 standCounter = 0;
             }
         }
     }
+
 
     public void pickup(int i) {
         if(i != 999) {
