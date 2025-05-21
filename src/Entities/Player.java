@@ -17,6 +17,7 @@ public class Player extends Entity {
     public final int screenY;
 
     public int hasKey = 0;
+    int standCounter = 0;
 
     public Player(GamePanel gp, KeyboardHandler keyboardHandler) {
         this.gp = gp;
@@ -115,6 +116,13 @@ public class Player extends Entity {
                 }
                 spriteCounter = 0;
             }
+        } else {
+            standCounter++;
+
+            if(standCounter == 30) {
+                spriteNumber = 1;// default animation beim Stehen
+                standCounter = 0;
+            }
         }
     }
 
@@ -194,5 +202,6 @@ public class Player extends Entity {
 
         }
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        /*g2.drawRect(screenX + hitBox.x, screenY + hitBox.y, hitBox.width, hitBox.height);  //hitbox anzeige  */
     }
 }

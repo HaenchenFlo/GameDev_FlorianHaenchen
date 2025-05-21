@@ -82,7 +82,7 @@ public class UI {
 
             //Spielzeit
             playTime += (double) 1/120;
-            g2.drawString("Zeit: " + decimalFormat.format(playTime), gp.tileSize * 14, 100);
+            g2.drawString("Zeit: " + decimalFormat.format(playTime), gp.tileSize * 13, 100);
 
             // Nachricht ausgeben und verschwinden lassen
             if (messageOn == true) {
