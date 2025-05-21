@@ -74,10 +74,17 @@ public class Player extends Entity {
             if (keyH.rightPressed) direction = "right";
 
             // Collision prüfen
+
+            //Tile Collision
             collisionOn = false;
             gp.cCheck.checkTile(this);
+            //Object Collision
             int objIndex = gp.cCheck.checkObject(this, true);
             pickup(objIndex);
+            //NPC Collision
+            int npcIndex = gp.cCheck.checkEntity(this, gp.npc);
+            interactNPC(npcIndex);
+
 
             // Bewegung
             if (!collisionOn) {
@@ -125,6 +132,12 @@ public class Player extends Entity {
     public void pickup(int i) {
         if(i != 999) {
 
+        }
+    }
+
+    public void interactNPC(int i) {
+        if(i != 999) {
+            System.out.println("test test test");
         }
     }
 

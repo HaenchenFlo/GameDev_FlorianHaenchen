@@ -30,7 +30,7 @@ public class TileManager {
 
     public void getTileImage() {
 
-        //alle image sind scaled und werden nicht während des SpielsLoop scaled mit der unteren methode setUp
+        //alle Images sind scaled und werden nicht während des SpielsLoop scaled mit der unteren methode setUp
         setUp(0, "grass", false);
         setUp(1, "wall", true);
         setUp(2, "water", true);

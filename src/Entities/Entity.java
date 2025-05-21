@@ -22,8 +22,9 @@ public class Entity {
 
     public int actionLockCounter = 0;
 
-    //Spieler Hitbox
+    //Spieler // NPC Hitbox
     public Rectangle hitBox = new Rectangle(0,0,96,96);
+
     //Object Hitbox checker
     public int hitBoxDefaultX, hitBoxDefaultY;
     public boolean collisionOn = false;
@@ -41,6 +42,8 @@ public class Entity {
 
         collisionOn = false;
         gp.cCheck.checkTile(this);
+        gp.cCheck.checkObject(this, false);
+        gp.cCheck.checkPlayer(this);
 
         if(collisionOn == false) {
             switch (direction) {
