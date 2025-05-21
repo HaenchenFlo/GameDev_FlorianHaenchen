@@ -49,14 +49,18 @@ public class Player extends Entity {
     }
 
     public void getPlayerImage() {
-        up1 = setUp("alec_up_1");
-        up2 = setUp("alec_up_1");
-        down1 = setUp("alec_down_1");
-        down2 = setUp("alec_down_1");
-        left1 = setUp("alec_left_1");
-        left2 = setUp("alec_left_1");
-        right1 = setUp("alec_right_1");
-        right2 = setUp("alec_right_2");
+        up1 = setUp("player_up1");
+        up2 = setUp("player_up2");
+        up3 = setUp("player_up3");
+        down1 = setUp("player_down1");
+        down2 = setUp("player_down2");
+        down3 = setUp("player_down3");
+        left1 = setUp("player_left1");
+        left2 = setUp("player_left2");
+        left3 = setUp("player_left3");
+        right1 = setUp("player_right1");
+        right2 = setUp("player_right2");
+        right3 = setUp("player_right3");
     }
 
     public BufferedImage setUp(String imageName) {
@@ -116,8 +120,11 @@ public class Player extends Entity {
             // Animation
             if (moving) {
                 spriteCounter++;
-                if (spriteCounter > 20) {
-                    spriteNumber = spriteNumber == 1 ? 2 : 1;
+                if (spriteCounter > 18) {
+                    spriteNumber++;
+                    if(spriteNumber > 3) {
+                        spriteNumber = 1;
+                    }
                     spriteCounter = 0;
                 }
             }
@@ -173,36 +180,24 @@ public class Player extends Entity {
 
         switch (direction) {
             case "up":
-                if(spriteNumber == 1) {
-                    image = up1;
-                }
-                if(spriteNumber == 2) {
-                    image = up2;
-                }
+                if(spriteNumber == 1) {image = up1;}
+                if(spriteNumber == 2) {image = up2;}
+                if(spriteNumber == 3) {image = up3;}
                 break;
             case "down":
-                if(spriteNumber == 1) {
-                    image = down1;
-                }
-                if(spriteNumber == 2) {
-                    image = down2;
-                }
+                if(spriteNumber == 1) {image = down1;}
+                if(spriteNumber == 2) {image = down2;}
+                if(spriteNumber == 3) {image = down3;}
                 break;
             case "left":
-                if(spriteNumber == 1) {
-                    image = left1;
-                }
-                if(spriteNumber == 2) {
-                    image = left2;
-                }
+                if(spriteNumber == 1) {image = left1;}
+                if(spriteNumber == 2) {image = left2;}
+                if(spriteNumber == 3) {image = left3;}
                 break;
             case "right":
-                if(spriteNumber == 1) {
-                    image = right1;
-                }
-                if(spriteNumber == 2) {
-                    image = right2;
-                }
+                if(spriteNumber == 1) {image = right1;}
+                if(spriteNumber == 2) {image = right2;}
+                if(spriteNumber == 3) {image = right3;}
                 break;
 
         }
