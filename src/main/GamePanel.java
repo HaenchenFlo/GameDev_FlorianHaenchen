@@ -24,7 +24,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int maxWorldRow = 50;
 
     //FPS
-    int FPS = 120;
+    public int FPS = 120;
 
     //System
     TileManager tileM = new TileManager(this);
@@ -33,6 +33,8 @@ public class GamePanel extends JPanel implements Runnable{
     Sound se = new Sound();
     public CollisionCheck cCheck = new CollisionCheck(this);
     public ObjectHandler oSetter = new ObjectHandler(this);
+    //UI
+    public UI ui = new UI(this);
     Thread gameThread;
 
     //Entity und Objecte
@@ -114,11 +116,17 @@ public class GamePanel extends JPanel implements Runnable{
             }
         }
 
-        //Tile
+        //Spieler
         player.draw(g2);
+
+        //UI
+        ui.draw(g2);
 
         g2.dispose();
     }
+
+
+
 
     public void playMusic(int i) {
 
