@@ -16,6 +16,7 @@ public class Entity {
     public int speed;
     public BufferedImage up1, up2,up3, down1, down2,down3, left1, left2,left3, right1, right2, right3;
     public String direction;
+    String[] dialogues = new String[20]; // mehr dialog einstellung
 
 
     public int spriteCounter = 0;
@@ -34,9 +35,9 @@ public class Entity {
         this.gp = gp;
     }
 
-    public void setAction() {
+    public void setAction() {}
 
-    }
+    public void speak() {}
 
     public void update() {
         setAction();
