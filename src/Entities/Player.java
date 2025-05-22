@@ -41,6 +41,8 @@ public class Player extends Entity {
 
         worldX = gp.tileSize * 23;
         worldY = gp.tileSize * 21;
+        dWorldX = worldX;
+        dWorldY = worldY;
         speed = 4;
         direction = "down";
 
@@ -88,22 +90,22 @@ public class Player extends Entity {
 
             // Bewegung
             if (!collisionOn) {
-                int dx = 0;
-                int dy = 0;
-
+                int dx = 0, dy = 0;
                 if (keyH.upPressed) dy -= 1;
                 if (keyH.downPressed) dy += 1;
                 if (keyH.leftPressed) dx -= 1;
                 if (keyH.rightPressed) dx += 1;
 
-                // Diagonal normalisieren
+                double diagSpeed = speed;
                 if (dx != 0 && dy != 0) {
-                    worldX += (int) (dx * (speed / Math.sqrt(3)));
-                    worldY += (int) (dy * (speed / Math.sqrt(3)));
-                } else {
-                    worldX += dx * speed;
-                    worldY += dy * speed;
+                    diagSpeed = speed / Math.sqrt(2);
                 }
+
+                dWorldX += dx * diagSpeed;
+                dWorldY += dy * diagSpeed;
+
+                worldX = (int) dWorldX;
+                worldY = (int) dWorldY;
 
                 moving = true;
             }
@@ -137,7 +139,7 @@ public class Player extends Entity {
 
     public void interactNPC(int i) {
         if(i != 999) {
-            System.out.println("test test test");
+
         }
     }
 
