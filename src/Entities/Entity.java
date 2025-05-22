@@ -17,6 +17,7 @@ public class Entity {
     public BufferedImage up1, up2,up3, down1, down2,down3, left1, left2,left3, right1, right2, right3;
     public String direction;
     String[] dialogues = new String[20]; // mehr dialog einstellung
+    int dialogIndex = 0;
 
 
     public int spriteCounter = 0;
@@ -37,7 +38,20 @@ public class Entity {
 
     public void setAction() {}
 
-    public void speak() {}
+    public void speak() {
+        if(dialogues[dialogIndex] == null) {
+            dialogIndex = 0;
+        }
+        gp.ui.currentDialog = dialogues[dialogIndex];
+        dialogIndex++;
+
+        switch (gp.player.direction) {
+            case "up": direction = "down"; spriteNumber = 1; break;
+            case "down": direction = "up"; spriteNumber = 1; break;
+            case "left": direction = "right"; spriteNumber = 1; break;
+            case "right": direction = "left"; spriteNumber = 1; break;
+        }
+    }
 
     public void update() {
         setAction();

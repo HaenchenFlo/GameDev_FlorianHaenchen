@@ -6,7 +6,7 @@ import java.awt.*;
 public class UI {
 
     GamePanel gp;
-    Font comic_40, arial_80B;
+    Font arial_40, arial_80B;
     Graphics2D g2;
     public boolean messageOn = false;
     public String message = "";
@@ -14,7 +14,7 @@ public class UI {
 
     public UI(GamePanel gp) {
         this.gp = gp;
-        comic_40 = new Font("Comic Sans MS", Font.PLAIN, 40);
+        arial_40 = new Font("Arial", Font.PLAIN, 40);
         arial_80B = new Font("Arial", Font.BOLD, 80);
     }
 
@@ -28,7 +28,7 @@ public class UI {
 
         this.g2 = g2;
 
-        g2.setFont(comic_40);
+        g2.setFont(arial_40);
         g2.setColor(Color.YELLOW);
 
         if(gp.gameState == gp.playState) {
@@ -64,10 +64,14 @@ public class UI {
 
         drawSubWindow(x,y,width,height);
 
-        x += gp.tileSize;
-        y += gp.tileSize;
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN,32f));
+        x += (gp.tileSize / 2);
+        y += gp.tileSize / 2 + gp.tileSize / 4;
 
-        g2.drawString(currentDialog,x,y);
+        for(String line : currentDialog.split("\n")) {
+            g2.drawString(line,x,y);
+            y += 40;
+        }
     }
 
     public void drawSubWindow(int x, int y, int width, int height) {

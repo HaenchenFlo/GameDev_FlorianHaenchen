@@ -59,10 +59,15 @@ public class NPC_Oldman extends Entity {
     }
 
     public void setDialog() {
-        dialogues[0] = "kys, Alec";
+        dialogues[0] = "Oy vey";
+        dialogues[1] = "Willst du ein Make-Shift Dildo bauen? :)";
+        dialogues[2] = "Ich liebe 3 Finger in meinem Arsch";
+        dialogues[3] = "Kys, Alec";
     }
 
     public void speak() {
-        gp.ui.currentDialog = dialogues[0];
+
+        super.speak();
+
     }
 }
