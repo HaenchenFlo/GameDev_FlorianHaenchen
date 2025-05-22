@@ -67,7 +67,7 @@ public class Player extends Entity {
     public void update() {
         boolean moving = false;
 
-        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
+        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed || keyH.enterPressed == true) {
 
             // Setze Richtung für Animation
             if (keyH.upPressed) direction = "up";
@@ -89,7 +89,7 @@ public class Player extends Entity {
 
 
             // Bewegung
-            if (!collisionOn) {
+            if (!collisionOn && !keyH.enterPressed) {
                 int dx = 0, dy = 0;
                 if (keyH.upPressed) dy -= 1;
                 if (keyH.downPressed) dy += 1;
@@ -109,6 +109,8 @@ public class Player extends Entity {
 
                 moving = true;
             }
+
+            keyH.enterPressed = false;
 
             // Animation
             if (moving) {
