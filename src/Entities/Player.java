@@ -98,8 +98,8 @@ public class Player extends Entity {
 
                 // Diagonal normalisieren
                 if (dx != 0 && dy != 0) {
-                    worldX += (int) (dx * (speed / Math.sqrt(2)));
-                    worldY += (int) (dy * (speed / Math.sqrt(2)));
+                    worldX += (int) (dx * (speed / Math.sqrt(3)));
+                    worldY += (int) (dy * (speed / Math.sqrt(3)));
                 } else {
                     worldX += dx * speed;
                     worldY += dy * speed;
