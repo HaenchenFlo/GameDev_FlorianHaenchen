@@ -3,6 +3,8 @@ package main;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+//Klasse für Voreinstellungen
+
 public class Utility {
 
     public BufferedImage scaleImage(BufferedImage original, int width, int heigth) {

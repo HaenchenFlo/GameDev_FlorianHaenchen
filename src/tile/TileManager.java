@@ -19,24 +19,66 @@ public class TileManager {
     public TileManager(GamePanel gp) {
         this.gp = gp;
 
-        tile = new Tile[30];
+        tile = new Tile[50];
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 
         getTileImage();
 
-        loadMap("/maps/world01.txt");
+        loadMap("/maps/worldV2.txt");
 
     }
 
     public void getTileImage() {
 
-        //alle Images sind scaled und werden nicht während des SpielsLoop scaled mit der unteren methode setUp
+        //Placeholder
         setUp(0, "grass", false);
-        setUp(1, "wall", true);
-        setUp(2, "water", true);
-        setUp(3, "earth", false);
-        setUp(4, "tree", true);
-        setUp(5, "sand", false);
+        setUp(1, "grass", false);
+        setUp(2, "grass", false);
+        setUp(3, "grass", false);
+        setUp(4, "grass", false);
+        setUp(5, "grass", false);
+        setUp(6, "grass", false);
+        setUp(7, "grass", false);
+        setUp(8, "/water/water_0", false);
+        setUp(9, "/water/water_0", false);
+
+
+        setUp(10, "grass", false);
+        setUp(11, "grass", false);
+        setUp(12, "/water/water_0", true);
+        setUp(13, "/water/water_1", true);
+        setUp(14, "grass", false);
+        setUp(15, "grass", false);
+        setUp(16, "grass", false);
+        setUp(17, "grass", false);
+        setUp(18, "grass", false);
+        setUp(19, "grass", false);
+        setUp(20, "grass", false);
+        setUp(21, "grass", false);
+        setUp(22, "grass", false);
+        setUp(23, "grass", false);
+        setUp(24, "grass", false);
+        setUp(25, "grass", false);
+        setUp(26, "grass", false);
+        setUp(27, "grass", false);
+        setUp(28, "grass", false);
+        setUp(29, "grass", false);
+        setUp(30, "grass", false);
+        setUp(31, "grass", false);
+        setUp(32, "grass", false);
+        setUp(33, "grass", false);
+        setUp(34, "grass", false);
+        setUp(35, "grass", false);
+        setUp(36, "grass", false);
+        setUp(37, "grass", false);
+        setUp(38, "grass", false);
+        setUp(39, "grass", false);
+        setUp(40, "grass", false);
+        setUp(41, "grass", false);
+
+
+
+
 
 
     }
