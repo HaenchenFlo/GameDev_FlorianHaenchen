@@ -74,8 +74,9 @@ public class TileManager {
         setUp(38, "/road_grass/road12", false);
         setUp(39, "/old/earth", false);
         setUp(40, "/old/wall", true);
-        setUp(41, "/forest/tree01", true);
-        setUp(42, "/road_grass/road13", false);
+        setUp(41, "/forest/tree00", true);
+        setUp(42, "/forest/tree01", true);//dichter wald
+
 
 
 
