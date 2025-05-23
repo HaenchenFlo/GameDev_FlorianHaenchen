@@ -15,10 +15,12 @@ public class OBJ_Heart extends SuperObject {
 
         name = "Heart";
         try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/heart/heart00.png")));
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/heart/heart01.png")));
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/heart/heart02.png")));
-            uTool.scaleImage(image, gp.tileSize,gp.tileSize);
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/heart/heart0.png")));
+            image2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/heart/heart1.png")));
+            image3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/heart/heart2.png")));
+            image = uTool.scaleImage(image, gp.tileSize / 2,gp.tileSize / 2);
+            image2 = uTool.scaleImage(image2, gp.tileSize / 2,gp.tileSize / 2);
+            image3 = uTool.scaleImage(image3, gp.tileSize / 2,gp.tileSize / 2);
 
         } catch (IOException _) {
 

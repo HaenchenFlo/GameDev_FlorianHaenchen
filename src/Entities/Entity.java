@@ -32,6 +32,12 @@ public class Entity {
     public int hitBoxDefaultX, hitBoxDefaultY;
     public boolean collisionOn = false;
 
+    //Character Status
+    public int maxHealth;
+    public int health;
+
+
+
     public Entity(GamePanel gp) {
         this.gp = gp;
     }

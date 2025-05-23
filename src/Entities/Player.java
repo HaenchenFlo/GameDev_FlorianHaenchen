@@ -42,12 +42,20 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
 
+        //Spieler Position und speed
+
         worldX = gp.tileSize * 23;
         worldY = gp.tileSize * 21;
         dWorldX = worldX;
         dWorldY = worldY;
         speed = 4;
         direction = "down";
+
+        //Spieler Status
+
+        maxHealth = 6;
+        health = maxHealth;
+
 
     }
 

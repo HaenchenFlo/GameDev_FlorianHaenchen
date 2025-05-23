@@ -1,8 +1,12 @@
 package main;
 
 
+import object.OBJ_Heart;
+import object.SuperObject;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
@@ -12,6 +16,7 @@ public class UI {
     GamePanel gp;
     Font joyStix;
     Graphics2D g2;
+    BufferedImage healthFull, healthHalf, healthNull;
     public boolean messageOn = false;
     public String message = "";
     public String currentDialog = "";
@@ -27,6 +32,13 @@ public class UI {
         } catch (IOException | FontFormatException e) {
             throw new RuntimeException(e);
         }
+
+        //Spieler HUD
+        SuperObject heart = new OBJ_Heart(gp);
+        healthFull = heart.image;
+        healthHalf = heart.image2;
+        healthNull = heart.image3;
+
     }
 
     public void showMessage(String s) {
@@ -48,16 +60,51 @@ public class UI {
         }
 
         if(gp.gameState == gp.playState) {
-
+            drawPlayerHealth();
         }
 
         if(gp.gameState == gp.pauseState) {
+            drawPlayerHealth();
             drawPause();
         }
 
         if(gp.gameState == gp.dialogState) {
+            drawPlayerHealth();
             drawDialogScreen();
         }
+    }
+
+    public void drawPlayerHealth() {
+
+        int x = gp.tileSize / 2;
+        int y = gp.tileSize / 2;
+        int i = 0;
+
+
+        //Leben 0
+        while(i < gp.player.maxHealth/2) {
+            g2.drawImage(healthNull,x,y,null);
+            i++;
+            x += gp.tileSize / 2 + gp.tileSize / 8;
+        }
+
+        // Reset
+        x = gp.tileSize / 2;
+        i = 0;
+
+
+        //Lebendig
+        while(i < gp.player.health) {
+            g2.drawImage(healthHalf,x,y,null);
+            i++;
+            if(i < gp.player.health) {
+                g2.drawImage(healthFull,x,y,null);
+            }
+            i++;
+            x += gp.tileSize / 2 + gp.tileSize / 8;
+        }
+
+
     }
 
     public void drawTitle() {
