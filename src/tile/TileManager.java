@@ -59,7 +59,7 @@ public class TileManager {
         setUp(23, "/water/water11", true);
         setUp(24, "/water/water12", true);
         setUp(25, "/water/water13", true);
-        setUp(26, "/road_grass/road00", false);
+        setUp(26, "/road_grass/road001", false);
         setUp(27, "/road_grass/road01", false);
         setUp(28, "/road_grass/road02", false);
         setUp(29, "/road_grass/road03", false);
