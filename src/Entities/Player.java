@@ -21,9 +21,12 @@ public class Player extends Entity {
 
         this.keyH = keyboardHandler;
 
+        //Spielercam
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
         screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
+
+        //hitboxen von Entity
         hitBox = new Rectangle();
         hitBox.x = 32;
         hitBox.y = 32;

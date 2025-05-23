@@ -134,7 +134,7 @@ public class TileManager {
         }
     }
 
-
+    //draw map
     public void draw(Graphics2D g2) {
 
         int worldCol = 0;
