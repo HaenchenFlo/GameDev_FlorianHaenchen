@@ -22,42 +22,70 @@ public class KeyboardHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
 
-        int code = e.getKeyCode();
+        int keyInput = e.getKeyCode();
+
+        //Titel
+        if(gp.gameState == gp.titleState) {
+            if(keyInput == KeyEvent.VK_W) {
+                gp.ui.commandNum--;
+                if(gp.ui.commandNum < 0) {
+                    gp.ui.commandNum = 2;
+                }
+            }
+            if(keyInput == KeyEvent.VK_S) {
+                gp.ui.commandNum++;
+                if(gp.ui.commandNum > 2) {
+                    gp.ui.commandNum = 0;
+                }
+            }
+
+            if(keyInput == KeyEvent.VK_ENTER) {
+                switch(gp.ui.commandNum) {
+                    case 0: gp.gameState = gp.playState;
+                            gp.playMusic(0);
+                            break;
+                    case 1:
+                            break;
+                    case 2: System.exit(0);
+                            break;
+                }
+            }
+        }
 
         //player movement
         if(gp.gameState == gp.playState) {
-            if(code == KeyEvent.VK_W) {
+            if(keyInput == KeyEvent.VK_W) {
                 upPressed = true;
             }
-            if(code == KeyEvent.VK_S) {
+            if(keyInput == KeyEvent.VK_S) {
                 downPressed = true;
             }
 
-            if(code == KeyEvent.VK_A) {
+            if(keyInput == KeyEvent.VK_A) {
                 leftPressed = true;
             }
 
-            if(code == KeyEvent.VK_D) {
+            if(keyInput == KeyEvent.VK_D) {
                 rightPressed = true;
             }
 
-            if(code == KeyEvent.VK_P) {
+            if(keyInput == KeyEvent.VK_P) {
                 gp.gameState = gp.pauseState;
             }
-            if(code == KeyEvent.VK_ENTER) {
+            if(keyInput == KeyEvent.VK_ENTER) {
                enterPressed = true;
             }
 
         }
         //pause
         else if(gp.gameState == gp.pauseState) {
-            if(code == KeyEvent.VK_P) {
+            if(keyInput == KeyEvent.VK_P) {
                 gp.gameState = gp.playState;
             }
         }
         //dialog
         else if(gp.gameState == gp.dialogState) {
-                if(code == KeyEvent.VK_ENTER) {
+                if(keyInput == KeyEvent.VK_ENTER) {
                     gp.gameState = gp.playState;
                 }
         }
