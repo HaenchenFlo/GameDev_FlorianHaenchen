@@ -114,7 +114,7 @@ public class UI {
 
         //titel
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,96f));
-        String text = "2D Spiel Florian";
+        String text = "NIGGERS";
         int x = centerTextX(text);
         int y = gp.tileSize * 2;
 

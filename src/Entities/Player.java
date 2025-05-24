@@ -97,6 +97,11 @@ public class Player extends Entity {
             //NPC Collision
             int npcIndex = gp.cCheck.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
+            //Check Event
+            gp.eHandler.checkEvent();
+
+            //Nach jedem check
+            gp.keyH.enterPressed = false;
 
 
             // Bewegung
@@ -157,7 +162,6 @@ public class Player extends Entity {
                 gp.npc[i].speak();
             }
         }
-        gp.keyH.enterPressed = false;
     }
 
     public void draw(Graphics2D g2) {
