@@ -30,17 +30,17 @@ public class MON_GreenSlime extends Entity {
 
     public void getImage() {
         up1 = setUp("/monster/slime/slime0");
-        up2 = setUp("/monster/slime/slime1");
-        up3 = setUp("/monster/slime/slime2");
+        up2 = setUp("/monster/slime/slime3");
+        up3 = setUp("/monster/slime/slime4");
         down1 = setUp("/monster/slime/slime0");
-        down2 = setUp("/monster/slime/slime1");
-        down3 = setUp("/monster/slime/slime2");
+        down2 = setUp("/monster/slime/slime3");
+        down3 = setUp("/monster/slime/slime4");
         left1 = setUp("/monster/slime/slime0");
-        left2 = setUp("/monster/slime/slime1");
-        left3 = setUp("/monster/slime/slime2");
+        left2 = setUp("/monster/slime/slime3");
+        left3 = setUp("/monster/slime/slime4");
         right1 = setUp("/monster/slime/slime0");
-        right2 = setUp("/monster/slime/slime1");
-        right3 = setUp("/monster/slime/slime2");
+        right2 = setUp("/monster/slime/slime3");
+        right3 = setUp("/monster/slime/slime4");
 
     }
 
