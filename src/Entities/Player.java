@@ -192,6 +192,6 @@ public class Player extends Entity {
 
         }
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
-        /*g2.drawRect(screenX + hitBox.x, screenY + hitBox.y, hitBox.width, hitBox.height);  //hitbox anzeige  */
+        /*g2.drawRect(screenX + hitBox.x, screenY + hitBox.y, hitBox.width, hitBox.height);  //hitbox anzeige*/
     }
 }

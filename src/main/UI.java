@@ -1,8 +1,8 @@
 package main;
 
 
+import Entities.Entity;
 import object.OBJ_Heart;
-import object.SuperObject;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -34,7 +34,7 @@ public class UI {
         }
 
         //Spieler HUD
-        SuperObject heart = new OBJ_Heart(gp);
+        Entity heart = new OBJ_Heart(gp);
         healthFull = heart.image;
         healthHalf = heart.image2;
         healthNull = heart.image3;

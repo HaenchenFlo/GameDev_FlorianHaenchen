@@ -2,11 +2,11 @@ package main;
 
 import Entities.Entity;
 import Entities.Player;
-import object.SuperObject;
 import tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
 
 public class GamePanel extends JPanel implements Runnable{
     //funktioniert als GameScreen
@@ -42,8 +42,9 @@ public class GamePanel extends JPanel implements Runnable{
 
     //Entity und Objecte
     public Player player = new Player(this, keyH);
-    public SuperObject[] obj = new SuperObject[10];// erhöhen für mehr obj
+    public Entity[] obj = new Entity[10];// erhöhen für mehr obj
     public Entity[] npc = new Entity[10];
+    ArrayList<Entity> entityList = new ArrayList<>();
 
     //Game State
 
@@ -145,22 +146,34 @@ public class GamePanel extends JPanel implements Runnable{
             //Tile
             tileM.draw(g2);
 
-            //Object
-            for(int i = 0; i < obj.length; i++) {
-                if(obj[i] != null) { //gegen Nullpointer
-                    obj[i].draw(g2, this);
-                }
-            }
+            entityList.add(player);
 
-            //NPC
             for(int i = 0; i < npc.length; i++) {
                 if(npc[i] != null) {
-                    npc[i].draw(g2);
+                    entityList.add(npc[i]);
                 }
             }
 
-            //Spieler
-            player.draw(g2);
+            for(int i = 0; i < obj.length; i++) {
+                if(obj[i] != null) {
+                    entityList.add(obj[i]);
+                }
+            }
+
+            entityList.sort(new Comparator<Entity>() {
+                @Override
+                public int compare(Entity o1, Entity o2) {
+                    return Integer.compare(o1.worldY, o2.worldY);
+                }
+            });
+
+
+            //Entity draw
+            for(int i = 0; i < entityList.size(); i++) {
+                entityList.get(i).draw(g2);
+            }
+
+            entityList.clear();
 
             //UI
             ui.draw(g2);

@@ -15,18 +15,22 @@ public class Entity {
     public double dWorldX, dWorldY;
     public int speed;
     public BufferedImage up1, up2,up3, down1, down2,down3, left1, left2,left3, right1, right2, right3;
-    public String direction;
+    public String direction = "down";
+    //Spieler // NPC Hitbox // OBJ Hitbox
+    public Rectangle hitBox = new Rectangle(0,0,96,96);
+    public int hitboxDefaultX,hitboxDefaultY;
+
     String[] dialogues = new String[20]; // mehr dialog einstellung
     int dialogIndex = 0;
+    public BufferedImage image, image2,image3;
+    public String name;
+    public boolean collision = false;
 
 
     public int spriteCounter = 0;
     public int spriteNumber = 1;
 
     public int actionLockCounter = 0;
-
-    //Spieler // NPC Hitbox
-    public Rectangle hitBox = new Rectangle(0,0,96,96);
 
     //Object Hitbox checker
     public int hitBoxDefaultX, hitBoxDefaultY;
@@ -122,6 +126,8 @@ public class Entity {
             }
 
             g2.drawImage(image, screenX, screenY, gp.tileSize,gp.tileSize,null);
+            //hitbox anzeige
+            g2.drawRect(screenX + hitBox.x, screenY + hitBox.y, hitBox.width, hitBox.height);
         }
     }
 
