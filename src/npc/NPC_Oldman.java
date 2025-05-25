@@ -1,5 +1,6 @@
-package Entities;
+package npc;
 
+import Entities.Entity;
 import main.GamePanel;
 
 import java.util.Random;

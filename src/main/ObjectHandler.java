@@ -1,6 +1,6 @@
 package main;
 
-import Entities.NPC_Oldman;
+import npc.NPC_Oldman;
 import object.OBJ_Door;
 import object.OBJ_Key;
 

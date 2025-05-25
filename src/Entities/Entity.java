@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class Entity {
 
-    GamePanel gp;
+    protected GamePanel gp;
     public int worldX, worldY;
     public double dWorldX, dWorldY;
     public int speed;
@@ -20,7 +20,7 @@ public class Entity {
     public Rectangle hitBox = new Rectangle(0,0,96,96);
     public int hitboxDefaultX,hitboxDefaultY;
 
-    String[] dialogues = new String[20]; // mehr dialog einstellung
+    public String[] dialogues = new String[20]; // mehr dialog einstellung
     int dialogIndex = 0;
     public BufferedImage image, image2,image3;
     public String name;
@@ -127,7 +127,7 @@ public class Entity {
 
             g2.drawImage(image, screenX, screenY, gp.tileSize,gp.tileSize,null);
             //hitbox anzeige
-            g2.drawRect(screenX + hitBox.x, screenY + hitBox.y, hitBox.width, hitBox.height);
+            /*g2.drawRect(screenX + hitBox.x, screenY + hitBox.y, hitBox.width, hitBox.height);*/
         }
     }
 
