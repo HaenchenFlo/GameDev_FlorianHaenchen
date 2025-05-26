@@ -26,7 +26,7 @@ public class Player extends Entity {
         screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
 
-        //hitboxen von Entity
+        //hitboxen von Player
         hitBox = new Rectangle();
         hitBox.x = 32;
         hitBox.y = 32;
@@ -74,6 +74,26 @@ public class Player extends Entity {
         right3 = setUp("/player/player_right3");
     }
 
+    public void getPlayerAttack() {
+
+        attackUp1 = setUp("/player/attack/player_attack_");
+        attackUp2 = setUp("/player/attack/player_attack_");
+        attackUp3 = setUp("/player/attack/player_attack_");
+
+        attackDown1 = setUp("/player/attack/player_attack_");
+        attackDown2 = setUp("/player/attack/player_attack_");
+        attackDown3 = setUp("/player/attack/player_attack_");
+
+        attackLeft1 = setUp("/player/attack/player_attack_");
+        attackLeft2 = setUp("/player/attack/player_attack_");
+        attackLeft3 = setUp("/player/attack/player_attack_");
+
+        attackRight1 = setUp("/player/attack/player_attack_");
+        attackRight2 = setUp("/player/attack/player_attack_");
+        attackRight3 = setUp("/player/attack/player_attack_");
+
+    }
+
 
     public void update() {
         boolean moving = false;
@@ -91,12 +111,19 @@ public class Player extends Entity {
             //Tile Collision
             collisionOn = false;
             gp.cCheck.checkTile(this);
+
             //Object Collision
             int objIndex = gp.cCheck.checkObject(this, true);
             pickup(objIndex);
+
             //NPC Collision
             int npcIndex = gp.cCheck.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
+
+            //Gegner / Monster Collision
+            int monsterIndex = gp.cCheck.checkEntity(this,gp.monster);
+            contactMonster(monsterIndex);
+
             //Check Event
             gp.eHandler.checkEvent();
 
@@ -146,7 +173,16 @@ public class Player extends Entity {
                 standCounter = 0;
             }
         }
-    }
+
+        //I-Frames
+        if(invincible == true) {
+            invincibleCounter++;
+            if(invincibleCounter > 120) {
+                invincible = false;
+                invincibleCounter = 0;
+            }
+        }
+     }
 
 
     public void pickup(int i) {
@@ -160,6 +196,15 @@ public class Player extends Entity {
             if(keyH.enterPressed == true) {
                 gp.gameState = gp.dialogState;
                 gp.npc[i].speak();
+            }
+        }
+    }
+
+    public void contactMonster(int i) {
+        if(i != 999) {
+            if(invincible == false) {
+                health -= 1;
+                invincible = true;
             }
         }
     }
@@ -191,7 +236,21 @@ public class Player extends Entity {
                 break;
 
         }
+
+        if(invincible == true) {
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.5f));
+        }
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
-        /*g2.drawRect(screenX + hitBox.x, screenY + hitBox.y, hitBox.width, hitBox.height);  //hitbox anzeige*/
+        //Reset Alpha
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1f));
+
+
+        //hitbox anzeige
+        /*g2.drawRect(screenX + hitBox.x, screenY + hitBox.y, hitBox.width, hitBox.height); */
+
+        //I-frame test
+        /*g2.setFont(new Font("Arial", Font.PLAIN,26));
+        g2.setColor(Color.white);
+        g2.drawString("Invincible Counter: " + invincibleCounter, 10, 400);*/
     }
 }

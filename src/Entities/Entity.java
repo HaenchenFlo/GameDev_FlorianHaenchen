@@ -11,32 +11,39 @@ import java.util.Objects;
 public class Entity {
 
     protected GamePanel gp;
-    public int worldX, worldY;
-    public double dWorldX, dWorldY;
-    public int speed;
+
+    //Image
     public BufferedImage up1, up2,up3, down1, down2,down3, left1, left2,left3, right1, right2, right3;
-    public String direction = "down";
+    public BufferedImage attackUp1, attackUp2,attackUp3, attackDown1, attackDown2,attackDown3, attackLeft1, attackLeft2,attackLeft3,attackRight1, attackRight2, attackRight3;
+    public BufferedImage image, image2,image3;
+
     //Spieler // NPC Hitbox // OBJ Hitbox
     public Rectangle hitBox = new Rectangle(0,0,96,96);
     public int hitboxDefaultX,hitboxDefaultY;
 
+    //Dialog
     public String[] dialogues = new String[20]; // mehr dialog einstellung
     int dialogIndex = 0;
-    public BufferedImage image, image2,image3;
-    public String name;
-    public boolean collision = false;
 
-
-    public int spriteCounter = 0;
-    public int spriteNumber = 1;
-
-    public int actionLockCounter = 0;
-
-    //Object Hitbox checker
+    //State
+    public int worldX, worldY;
+    public double dWorldX, dWorldY;
+    public String direction = "down";
     public int hitBoxDefaultX, hitBoxDefaultY;
     public boolean collisionOn = false;
+    public boolean collision = false;
+    public boolean invincible = false;
+
+    //Counter
+    public int spriteCounter = 0;
+    public int spriteNumber = 1;
+    public int actionLockCounter = 0;
+    public int invincibleCounter = 0;
 
     //Character Status
+    public String name;
+    public int type; //O = player , 1 = npc, 2 = gegner
+    public int speed;
     public int maxHealth;
     public int health;
 
@@ -69,7 +76,16 @@ public class Entity {
         collisionOn = false;
         gp.cCheck.checkTile(this);
         gp.cCheck.checkObject(this, false);
-        gp.cCheck.checkPlayer(this);
+        gp.cCheck.checkEntity(this,gp.npc);
+        gp.cCheck.checkEntity(this,gp.monster);
+        boolean contactPlayer =  gp.cCheck.checkPlayer(this);
+
+        if(this.type == 2 && contactPlayer == true) {
+            if(gp.player.invincible == false) {
+                gp.player.health -= 1;
+                gp.player.invincible = true;
+            }
+        }
 
         if(collisionOn == false) {
             switch (direction) {
@@ -81,7 +97,7 @@ public class Entity {
         }
 
         spriteCounter++;
-        if(spriteCounter > 15) {
+        if(spriteCounter > 18) {
             spriteNumber++;
             if(spriteNumber > 3) {
                 spriteNumber = 1;
@@ -127,7 +143,7 @@ public class Entity {
 
             g2.drawImage(image, screenX, screenY, gp.tileSize,gp.tileSize,null);
             //hitbox anzeige
-            /*g2.drawRect(screenX + hitBox.x, screenY + hitBox.y, hitBox.width, hitBox.height);*/
+            g2.drawRect(screenX + hitBox.x, screenY + hitBox.y, hitBox.width, hitBox.height);
         }
     }
 
@@ -139,6 +155,21 @@ public class Entity {
         try {
             image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imageName + ".png")));
             scaledImage = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+        } catch (Exception _) {
+
+        }
+
+        return scaledImage;
+    }
+    //Overloaded setUp für nicht 32x32 format Sprites
+    public BufferedImage setUp(String imageName, int width, int height) {
+        Utility uTool = new Utility();
+        BufferedImage image;
+        BufferedImage scaledImage = null;
+
+        try {
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imageName + ".png")));
+            scaledImage = uTool.scaleImage(image, width, height);
         } catch (Exception _) {
 
         }

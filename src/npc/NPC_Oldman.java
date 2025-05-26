@@ -17,6 +17,13 @@ public class NPC_Oldman extends Entity {
         getImage();
         setDialog();
 
+        hitBox.x = 32;
+        hitBox.y = 32;
+        hitBoxDefaultX = hitBox.x;
+        hitBoxDefaultY = hitBox.y;
+        hitBox.width = 32;
+        hitBox.height = 48;
+
     }
 
     public void getImage() {

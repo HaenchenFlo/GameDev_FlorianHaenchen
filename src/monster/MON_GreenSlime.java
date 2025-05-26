@@ -12,14 +12,15 @@ public class MON_GreenSlime extends Entity {
     public MON_GreenSlime(GamePanel gp) {
         super(gp);
 
+        type = 2;
         name = "Green Slime";
         speed = 1;
         maxHealth = 4;
         health = maxHealth;
 
-        hitBox.x = 6;
+        hitBox.x = 16;
         hitBox.y = 36;
-        hitBox.width = 84;
+        hitBox.width = 64;
         hitBox.height = 60;
         hitBoxDefaultX = hitBox.x;
         hitBoxDefaultY = hitBox.y;
