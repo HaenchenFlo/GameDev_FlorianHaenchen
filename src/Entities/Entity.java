@@ -14,7 +14,9 @@ public class Entity {
 
     //Image
     public BufferedImage up1, up2,up3, down1, down2,down3, left1, left2,left3, right1, right2, right3;
-    public BufferedImage attackUp1, attackUp2,attackUp3, attackDown1, attackDown2,attackDown3, attackLeft1, attackLeft2,attackLeft3,attackRight1, attackRight2, attackRight3;
+    public BufferedImage attackUp1, attackUp2,attackUp3, attackDown1, attackDown2,attackDown3,
+            attackLeft1, attackLeft2,attackLeft3,attackRight1, attackRight2, attackRight3 ,
+            attackUp4, attackUp5, attackDown4, attackDown5, attackLeft4, attackLeft5, attackRight4, attackRight5;
     public BufferedImage image, image2,image3;
 
     //Spieler // NPC Hitbox // OBJ Hitbox
@@ -33,6 +35,7 @@ public class Entity {
     public boolean collisionOn = false;
     public boolean collision = false;
     public boolean invincible = false;
+    public boolean attacking = false;
 
     //Counter
     public int spriteCounter = 0;
