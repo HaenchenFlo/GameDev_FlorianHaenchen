@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
     KeyboardHandler keyH;
+    BufferedImage up4, up5, up6,up7,up8,down4,down5,down6,down7,down8,left4,left5,left6,left7,left8,right4,right5,right6,right7,right8;
 
     public final int screenX;
     public final int screenY;
@@ -32,7 +33,7 @@ public class Player extends Entity {
         hitBox.y = 32;
         hitBoxDefaultX = hitBox.x;
         hitBoxDefaultY = hitBox.y;
-        hitBox.width = 32;
+        hitBox.width = 24;
         hitBox.height = 48;
 
         setDefaultValues();
@@ -60,18 +61,44 @@ public class Player extends Entity {
     }
 
     public void getPlayerImage() {
-        up1 = setUp("/player/player_up1");
-        up2 = setUp("/player/player_up2");
-        up3 = setUp("/player/player_up3");
-        down1 = setUp("/player/player_down1");
-        down2 = setUp("/player/player_down2");
-        down3 = setUp("/player/player_down3");
-        left1 = setUp("/player/player_left1");
-        left2 = setUp("/player/player_left2");
-        left3 = setUp("/player/player_left3");
-        right1 = setUp("/player/player_right1");
-        right2 = setUp("/player/player_right2");
-        right3 = setUp("/player/player_right3");
+
+        up1 = setUp("/player/up/player_up0");
+        up2 = setUp("/player/up/player_up1");
+        up3 = setUp("/player/up/player_up2");
+        up4 = setUp("/player/up/player_up3");
+        up5 = setUp("/player/up/player_up4");
+        up6 = setUp("/player/up/player_up5");
+        up7 = setUp("/player/up/player_up6");
+        up8 = setUp("/player/up/player_up7");
+
+        down1 = setUp("/player/right/player_right0");
+        down2 = setUp("/player/right/player_right1");
+        down3 = setUp("/player/right/player_right2");
+        down4 = setUp("/player/right/player_right3");
+        down5 = setUp("/player/right/player_right4");
+        down6 = setUp("/player/right/player_right5");
+        down7 = setUp("/player/right/player_right6");
+        down8 = setUp("/player/right/player_right7");
+
+
+        left1 = setUp("/player/left/player_left0");
+        left2 = setUp("/player/left/player_left1");
+        left3 = setUp("/player/left/player_left2");
+        left4 = setUp("/player/left/player_left3");
+        left5 = setUp("/player/left/player_left4");
+        left6 = setUp("/player/left/player_left5");
+        left7 = setUp("/player/left/player_left6");
+        left8 = setUp("/player/left/player_left7");
+
+        right1 = setUp("/player/right/player_right0");
+        right2 = setUp("/player/right/player_right1");
+        right3 = setUp("/player/right/player_right2");
+        right4 = setUp("/player/right/player_right3");
+        right5 = setUp("/player/right/player_right4");
+        right6 = setUp("/player/right/player_right5");
+        right7 = setUp("/player/right/player_right6");
+        right8 = setUp("/player/right/player_right7");
+
     }
 
     public void getPlayerAttack() {
@@ -158,9 +185,9 @@ public class Player extends Entity {
             // Animation
             if (moving) {
                 spriteCounter++;
-                if (spriteCounter > 18) {
+                if (spriteCounter > 10) {
                     spriteNumber++;
-                    if(spriteNumber > 3) {
+                    if(spriteNumber > 8) {
                         spriteNumber = 1;
                     }
                     spriteCounter = 0;
@@ -168,7 +195,7 @@ public class Player extends Entity {
             }
         } else {
             standCounter++;
-            if (standCounter == 30) {
+            if (standCounter == 24) {
                 spriteNumber = 1;
                 standCounter = 0;
             }
@@ -218,21 +245,41 @@ public class Player extends Entity {
                 if(spriteNumber == 1) {image = up1;}
                 if(spriteNumber == 2) {image = up2;}
                 if(spriteNumber == 3) {image = up3;}
+                if(spriteNumber == 4) {image = up4;}
+                if(spriteNumber == 5) {image = up5;}
+                if(spriteNumber == 6) {image = up6;}
+                if(spriteNumber == 7) {image = up7;}
+                if(spriteNumber == 8) {image = up8;}
                 break;
             case "down":
                 if(spriteNumber == 1) {image = down1;}
                 if(spriteNumber == 2) {image = down2;}
                 if(spriteNumber == 3) {image = down3;}
+                if(spriteNumber == 4) {image = down4;}
+                if(spriteNumber == 5) {image = down5;}
+                if(spriteNumber == 6) {image = down6;}
+                if(spriteNumber == 7) {image = down7;}
+                if(spriteNumber == 8) {image = down8;}
                 break;
             case "left":
                 if(spriteNumber == 1) {image = left1;}
                 if(spriteNumber == 2) {image = left2;}
                 if(spriteNumber == 3) {image = left3;}
+                if(spriteNumber == 4) {image = left4;}
+                if(spriteNumber == 5) {image = left5;}
+                if(spriteNumber == 6) {image = left6;}
+                if(spriteNumber == 7) {image = left7;}
+                if(spriteNumber == 8) {image = left8;}
                 break;
             case "right":
                 if(spriteNumber == 1) {image = right1;}
                 if(spriteNumber == 2) {image = right2;}
                 if(spriteNumber == 3) {image = right3;}
+                if(spriteNumber == 4) {image = right4;}
+                if(spriteNumber == 5) {image = right5;}
+                if(spriteNumber == 6) {image = right6;}
+                if(spriteNumber == 7) {image = right7;}
+                if(spriteNumber == 8) {image = right8;}
                 break;
 
         }
@@ -246,7 +293,7 @@ public class Player extends Entity {
 
 
         //hitbox anzeige
-        /*g2.drawRect(screenX + hitBox.x, screenY + hitBox.y, hitBox.width, hitBox.height); */
+        g2.drawRect(screenX + hitBox.x, screenY + hitBox.y, hitBox.width, hitBox.height);
 
         //I-frame test
         /*g2.setFont(new Font("Arial", Font.PLAIN,26));
