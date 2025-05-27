@@ -121,11 +121,11 @@ public class Player extends Entity {
         attackDown4 = setUp("/player/attack/player_attack_right3", gp.tileSize, gp.tileSize * 2);
         attackDown5 = setUp("/player/attack/player_attack_right4", gp.tileSize, gp.tileSize * 2);
 
-        attackLeft1 = setUp("/player/attack/player_attack_right0", gp.tileSize * 2, gp.tileSize);
-        attackLeft2 = setUp("/player/attack/player_attack_right1", gp.tileSize * 2, gp.tileSize);
-        attackLeft3 = setUp("/player/attack/player_attack_right2", gp.tileSize * 2, gp.tileSize);
-        attackLeft4 = setUp("/player/attack/player_attack_right3", gp.tileSize * 2, gp.tileSize);
-        attackLeft5 = setUp("/player/attack/player_attack_right4", gp.tileSize * 2, gp.tileSize);
+        attackLeft1 = setUp("/player/attack/player_attack_left0", gp.tileSize * 2, gp.tileSize);
+        attackLeft2 = setUp("/player/attack/player_attack_left1", gp.tileSize * 2, gp.tileSize);
+        attackLeft3 = setUp("/player/attack/player_attack_left2", gp.tileSize * 2, gp.tileSize);
+        attackLeft4 = setUp("/player/attack/player_attack_left3", gp.tileSize * 2, gp.tileSize);
+        attackLeft5 = setUp("/player/attack/player_attack_left4", gp.tileSize * 2, gp.tileSize);
 
         attackRight1 = setUp("/player/attack/player_attack_right0", gp.tileSize * 2, gp.tileSize);
         attackRight2 = setUp("/player/attack/player_attack_right1", gp.tileSize * 2, gp.tileSize);
@@ -283,11 +283,15 @@ public class Player extends Entity {
 
     public void draw(Graphics2D g2) {
 
+        int tempScreenX = screenX;
+        int tempScreenY = screenY;
+
         BufferedImage image = null;
 
         if (attacking) {
             switch (direction) {
                 case "up":
+                    tempScreenY = screenY - gp.tileSize;
                     if (spriteNumber == 1) {
                         image = attackUp1;
                     }
@@ -322,6 +326,7 @@ public class Player extends Entity {
                     }
                     break;
                 case "left":
+                    tempScreenX = screenX - gp.tileSize;
                     if (spriteNumber == 1) {
                         image = attackLeft1;
                     }
@@ -468,7 +473,7 @@ public class Player extends Entity {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
         }
 
-        g2.drawImage(image, screenX, screenY,null);
+        g2.drawImage(image, tempScreenX, tempScreenY,null);
 
         //Reset Alpha
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
