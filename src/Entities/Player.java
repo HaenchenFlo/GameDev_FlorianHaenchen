@@ -10,6 +10,15 @@ public class Player extends Entity {
     KeyboardHandler keyH;
     BufferedImage up4, up5, up6,up7,up8,down4,down5,down6,down7,down8,left4,left5,left6,left7,left8,right4,right5,right6,right7,right8;
 
+    //Angriff
+    public boolean attacking = false;
+    public int attackCounter = 0;
+    public int attackFrame = 0;
+
+    //Angriff animationen
+    BufferedImage[][] weaponSprites = new BufferedImage[4][5];
+    //[Richtung][Frames]
+
     public final int screenX;
     public final int screenY;
 
@@ -37,6 +46,8 @@ public class Player extends Entity {
         hitBox.height = 48;
 
         setDefaultValues();
+
+        loadWeaponSprite();
 
         getPlayerImage();
     }
@@ -121,94 +132,116 @@ public class Player extends Entity {
 
     }
 
+    public void loadWeaponSprite() {
+        for(int i = 0; i < 5; i++) {
+            weaponSprites[0][i] = setUp("/weapons/sword/sword_right" + i,gp.tileSize / 2,gp.tileSize / 2);
+            weaponSprites[1][i] = setUp("/weapons/sword/sword_right" + i,gp.tileSize / 2,gp.tileSize / 2);
+            weaponSprites[2][i] = setUp("/weapons/sword/sword_right" + i,gp.tileSize / 2,gp.tileSize / 2);
+            weaponSprites[3][i] = setUp("/weapons/sword/sword_right" + i,gp.tileSize / 2,gp.tileSize / 2);
+        }
+    }
+
 
     public void update() {
         boolean moving = false;
 
-        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed || keyH.enterPressed == true) {
-
-            // Setze Richtung für Animation
-            if (keyH.upPressed) direction = "up";
-            if (keyH.downPressed) direction = "down";
-            if (keyH.leftPressed) direction = "left";
-            if (keyH.rightPressed) direction = "right";
-
-            // Collision prüfen
-
-            //Tile Collision
-            collisionOn = false;
-            gp.cCheck.checkTile(this);
-
-            //Object Collision
-            int objIndex = gp.cCheck.checkObject(this, true);
-            pickup(objIndex);
-
-            //NPC Collision
-            int npcIndex = gp.cCheck.checkEntity(this, gp.npc);
-            interactNPC(npcIndex);
-
-            //Gegner / Monster Collision
-            int monsterIndex = gp.cCheck.checkEntity(this,gp.monster);
-            contactMonster(monsterIndex);
-
-            //Check Event
-            gp.eHandler.checkEvent();
-
-            //Nach jedem check
-            gp.keyH.enterPressed = false;
-
-
-            // Bewegung
-            if (!collisionOn && !keyH.enterPressed) {
-                int dx = 0, dy = 0;
-                if (keyH.upPressed) dy -= 1;
-                if (keyH.downPressed) dy += 1;
-                if (keyH.leftPressed) dx -= 1;
-                if (keyH.rightPressed) dx += 1;
-
-                double diagSpeed = speed;
-                if (dx != 0 && dy != 0) {
-                    diagSpeed = speed / Math.sqrt(2);
-                }
-
-                dWorldX += dx * diagSpeed;
-                dWorldY += dy * diagSpeed;
-
-                worldX = (int) dWorldX;
-                worldY = (int) dWorldY;
-
-                moving = true;
-            }
-
-            keyH.enterPressed = false;
-
-            // Animation
-            if (moving) {
-                spriteCounter++;
-                if (spriteCounter > 10) {
-                    spriteNumber++;
-                    if(spriteNumber > 8) {
-                        spriteNumber = 1;
-                    }
-                    spriteCounter = 0;
+        if (attacking) {
+            attackCounter++;
+            if (attackCounter % 10 == 0) {
+                attackFrame++;
+                if (attackFrame >= 5) {
+                    attacking = false;
+                    attackFrame = 0;
+                    attackCounter = 0;
                 }
             }
         } else {
-            standCounter++;
-            if (standCounter == 24) {
-                spriteNumber = 1;
-                standCounter = 0;
+            if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed || keyH.enterPressed == true) {
+
+                // Setze Richtung für Animation
+                if (keyH.upPressed) direction = "up";
+                if (keyH.downPressed) direction = "down";
+                if (keyH.leftPressed) direction = "left";
+                if (keyH.rightPressed) direction = "right";
+
+                // Collision prüfen
+
+                //Tile Collision
+                collisionOn = false;
+                gp.cCheck.checkTile(this);
+
+                //Object Collision
+                int objIndex = gp.cCheck.checkObject(this, true);
+                pickup(objIndex);
+
+                //NPC Collision
+                int npcIndex = gp.cCheck.checkEntity(this, gp.npc);
+                interactNPC(npcIndex);
+
+                //Gegner / Monster Collision
+                int monsterIndex = gp.cCheck.checkEntity(this,gp.monster);
+                contactMonster(monsterIndex);
+
+                //Check Event
+                gp.eHandler.checkEvent();
+
+                //Nach jedem check
+                gp.keyH.enterPressed = false;
+
+
+                // Bewegung
+                if (!collisionOn && !keyH.enterPressed) {
+                    int dx = 0, dy = 0;
+                    if (keyH.upPressed) dy -= 1;
+                    if (keyH.downPressed) dy += 1;
+                    if (keyH.leftPressed) dx -= 1;
+                    if (keyH.rightPressed) dx += 1;
+
+                    double diagSpeed = speed;
+                    if (dx != 0 && dy != 0) {
+                        diagSpeed = speed / Math.sqrt(2);
+                    }
+
+                    dWorldX += dx * diagSpeed;
+                    dWorldY += dy * diagSpeed;
+
+                    worldX = (int) dWorldX;
+                    worldY = (int) dWorldY;
+
+                    moving = true;
+                }
+
+                keyH.enterPressed = false;
+
+                // Animation
+                if (moving) {
+                    spriteCounter++;
+                    if (spriteCounter > 10) {
+                        spriteNumber++;
+                        if(spriteNumber > 8) {
+                            spriteNumber = 1;
+                        }
+                        spriteCounter = 0;
+                    }
+                }
+            } else {
+                standCounter++;
+                if (standCounter == 24) {
+                    spriteNumber = 1;
+                    standCounter = 0;
+                }
+            }
+
+            //I-Frames
+            if(invincible == true) {
+                invincibleCounter++;
+                if(invincibleCounter > 120) {
+                    invincible = false;
+                    invincibleCounter = 0;
+                }
             }
         }
 
-        //I-Frames
-        if(invincible == true) {
-            invincibleCounter++;
-            if(invincibleCounter > 120) {
-                invincible = false;
-                invincibleCounter = 0;
-            }
-        }
      }
 
 
@@ -239,6 +272,39 @@ public class Player extends Entity {
     public void draw(Graphics2D g2) {
 
         BufferedImage image = null;
+
+        if (attacking) {
+            int directionIndex = 0; // up
+
+            switch (direction) {
+                case "up": directionIndex = 0; break;
+                case "down": directionIndex = 1; break;
+                case "left": directionIndex = 2; break;
+                case "right": directionIndex = 3; break;
+            }
+
+            BufferedImage weaponImage = weaponSprites[directionIndex][attackFrame];
+
+            // Offset berechnen (abhängig von Blickrichtung)
+            int weaponOffsetX = 0;
+            int weaponOffsetY = 0;
+
+            switch (direction) {
+                case "up":    weaponOffsetY = -gp.tileSize / 2; break;
+                case "down":  weaponOffsetY = gp.tileSize / 2;  break;
+                case "left":  weaponOffsetX = -gp.tileSize / 2; break;
+                case "right": weaponOffsetX = gp.tileSize / 2;  break;
+            }
+
+            g2.drawImage(
+                    weaponImage,
+                    screenX + weaponOffsetX,
+                    screenY + weaponOffsetY,
+                    gp.tileSize,
+                    gp.tileSize,
+                    null
+            );
+        }
 
         switch (direction) {
             case "up":
@@ -290,7 +356,6 @@ public class Player extends Entity {
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
         //Reset Alpha
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1f));
-
 
         //hitbox anzeige
         g2.drawRect(screenX + hitBox.x, screenY + hitBox.y, hitBox.width, hitBox.height);

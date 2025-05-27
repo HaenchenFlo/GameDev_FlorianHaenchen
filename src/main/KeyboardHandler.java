@@ -75,6 +75,11 @@ public class KeyboardHandler implements KeyListener {
             if(keyInput == KeyEvent.VK_ENTER) {
                enterPressed = true;
             }
+            if(keyInput == KeyEvent.VK_SPACE && !gp.player.attacking) {
+                gp.player.attacking = true;
+                gp.player.attackCounter = 0;
+                gp.player.attackFrame = 0;
+            }
 
         }
         //pause
