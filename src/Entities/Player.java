@@ -39,8 +39,11 @@ public class Player extends Entity {
         hitBox.y = 32;
         hitBoxDefaultX = hitBox.x;
         hitBoxDefaultY = hitBox.y;
-        hitBox.width = 24;
+        hitBox.width = 32;
         hitBox.height = 48;
+
+        attackHitBox.width = 72;
+        attackHitBox.height = 72;
 
         setDefaultValues();
         getPlayerImage();
@@ -109,17 +112,17 @@ public class Player extends Entity {
 
     public void getPlayerAttack() {
 
-        attackUp1 = setUp("/player/attack/player_attack_right0", gp.tileSize, gp.tileSize * 2);
-        attackUp2 = setUp("/player/attack/player_attack_right1", gp.tileSize, gp.tileSize * 2);
-        attackUp3 = setUp("/player/attack/player_attack_right2", gp.tileSize, gp.tileSize * 2);
-        attackUp4 = setUp("/player/attack/player_attack_right3", gp.tileSize, gp.tileSize * 2);
-        attackUp5 = setUp("/player/attack/player_attack_right4", gp.tileSize, gp.tileSize * 2);
+        attackUp1 = setUp("/player/attack/player_attack_up0", gp.tileSize, gp.tileSize * 2);
+        attackUp2 = setUp("/player/attack/player_attack_up1", gp.tileSize, gp.tileSize * 2);
+        attackUp3 = setUp("/player/attack/player_attack_up2", gp.tileSize, gp.tileSize * 2);
+        attackUp4 = setUp("/player/attack/player_attack_up3", gp.tileSize, gp.tileSize * 2);
+        attackUp5 = setUp("/player/attack/player_attack_up4", gp.tileSize, gp.tileSize * 2);
 
-        attackDown1 = setUp("/player/attack/player_attack_right0", gp.tileSize, gp.tileSize * 2);
-        attackDown2 = setUp("/player/attack/player_attack_right1", gp.tileSize, gp.tileSize * 2);
-        attackDown3 = setUp("/player/attack/player_attack_right2", gp.tileSize, gp.tileSize * 2);
-        attackDown4 = setUp("/player/attack/player_attack_right3", gp.tileSize, gp.tileSize * 2);
-        attackDown5 = setUp("/player/attack/player_attack_right4", gp.tileSize, gp.tileSize * 2);
+        attackDown1 = setUp("/player/attack/player_attack_down0", gp.tileSize, gp.tileSize * 2);
+        attackDown2 = setUp("/player/attack/player_attack_down1", gp.tileSize, gp.tileSize * 2);
+        attackDown3 = setUp("/player/attack/player_attack_down2", gp.tileSize, gp.tileSize * 2);
+        attackDown4 = setUp("/player/attack/player_attack_down3", gp.tileSize, gp.tileSize * 2);
+        attackDown5 = setUp("/player/attack/player_attack_down4", gp.tileSize, gp.tileSize * 2);
 
         attackLeft1 = setUp("/player/attack/player_attack_left0", gp.tileSize * 2, gp.tileSize);
         attackLeft2 = setUp("/player/attack/player_attack_left1", gp.tileSize * 2, gp.tileSize);
@@ -242,6 +245,34 @@ public class Player extends Entity {
 
         if(spriteCounter > 25 && spriteCounter <= 35) {
             spriteNumber = 3;
+
+
+            //curren save
+            int currentWorldX = worldX;
+            int currentWorldY = worldY;
+            int hitBoxWidth = hitBox.width;
+            int hitBoxHeight = hitBox.height;
+
+
+            //spieler anpassen
+            switch (direction) {
+                case "up": worldY -= hitBoxHeight; break;
+                case "down": worldY += hitBoxHeight; break;
+                case "left": worldX -= hitBoxWidth; break;
+                case "right": worldX += hitBoxWidth; break;
+
+            }
+
+            hitBox.width = attackHitBox.width;
+            hitBox.height = attackHitBox.height;
+            // gegner Check
+            int monsterIndex = gp.cCheck.checkEntity(this, gp.monster);
+            damageMonster(monsterIndex);
+
+            worldX = currentWorldX;
+            worldY = currentWorldY;
+            hitBox.width = hitBoxWidth;
+            hitBox.height = hitBoxHeight;
         }
 
         if(spriteCounter > 35 && spriteCounter <= 45) {
@@ -277,6 +308,20 @@ public class Player extends Entity {
             if (invincible == false) {
                 health -= 1;
                 invincible = true;
+            }
+        }
+    }
+
+    public void damageMonster(int i) {
+        if(i != 999) {
+
+            if(gp.monster[i].invincible == false) {
+                gp.monster[i].health -= 1;
+                gp.monster[i].invincible = true;
+
+                if(gp.monster[i].health <= 0) {
+                    gp.monster[i] = null;
+                }
             }
         }
     }
@@ -479,6 +524,6 @@ public class Player extends Entity {
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
         //hitbox anzeige
-        g2.drawRect(screenX + hitBox.x, screenY + hitBox.y, hitBox.width, hitBox.height);
+        /*g2.drawRect(screenX + hitBox.x, screenY + hitBox.y, hitBox.width, hitBox.height);*/
     }
 }

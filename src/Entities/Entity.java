@@ -23,6 +23,8 @@ public class Entity {
     public Rectangle hitBox = new Rectangle(0,0,96,96);
     public int hitboxDefaultX,hitboxDefaultY;
 
+    public Rectangle attackHitBox = new Rectangle(0,0,0,0);
+
     //Dialog
     public String[] dialogues = new String[20]; // mehr dialog einstellung
     int dialogIndex = 0;
@@ -107,6 +109,14 @@ public class Entity {
             }
             spriteCounter = 0;
         }
+
+        if (invincible == true) {
+            invincibleCounter++;
+            if (invincibleCounter > 80) {
+                invincible = false;
+                invincibleCounter = 0;
+            }
+        }
     }
 
     public void draw(Graphics2D g2) {
@@ -143,10 +153,16 @@ public class Entity {
                     break;
 
             }
+            if (invincible == true) {
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+            }
 
             g2.drawImage(image, screenX, screenY, gp.tileSize,gp.tileSize,null);
+
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
             //hitbox anzeige
             g2.drawRect(screenX + hitBox.x, screenY + hitBox.y, hitBox.width, hitBox.height);
+
         }
     }
 
