@@ -63,7 +63,7 @@ public class Entity {
     }
 
     public void setAction() {}
-
+    public void damageReact() {}
     public void speak() {
         if(dialogues[dialogIndex] == null) {
             dialogIndex = 0;
@@ -91,6 +91,7 @@ public class Entity {
 
         if(this.type == 2 && contactPlayer == true) {
             if(gp.player.invincible == false) {
+                gp.soundEffect(6);
                 gp.player.health -= 1;
                 gp.player.invincible = true;
             }

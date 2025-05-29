@@ -235,6 +235,10 @@ public class Player extends Entity {
     public void attacking() {
         spriteCounter++;
 
+        if(spriteCounter == 1) {
+            gp.soundEffect(7);
+        }
+
         if(spriteCounter <= 5) {
             spriteNumber = 1;
         }
@@ -306,8 +310,10 @@ public class Player extends Entity {
     public void contactMonster(int i) {
         if (i != 999) {
             if (invincible == false) {
+                gp.soundEffect(6);
                 health -= 1;
                 invincible = true;
+                gp.monster[i].damageReact();
             }
         }
     }
@@ -316,7 +322,7 @@ public class Player extends Entity {
         if(i != 999) {
 
             if(gp.monster[i].invincible == false) {
-
+                gp.soundEffect(5);
                 gp.monster[i].health -= 1;
                 gp.monster[i].invincible = true;
 

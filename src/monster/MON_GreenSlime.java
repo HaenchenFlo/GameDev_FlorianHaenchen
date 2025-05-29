@@ -101,4 +101,10 @@ public class MON_GreenSlime extends Entity {
         g2.drawImage(impactFrame, screenX, screenY, gp.tileSize, gp.tileSize, null);
 
     }
+
+    public void damageReact() {
+        //einfache AI weg vom spieler laufen
+        actionLockCounter = 0;
+        direction = gp.player.direction;
+    }
 }
