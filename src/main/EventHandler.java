@@ -25,7 +25,6 @@ public class EventHandler {
 
         if(hit(27,16,"right") == true) {damagePit(gp.dialogState);}
         if(hit(23,12,"up") == true) {healingWater(gp.dialogState);}
-        if(hit(24,12,"up") == true) {teleport(gp.dialogState);}
     }
 
     public boolean hit(int eventCol, int eventRow, String reqDirection) {
@@ -52,12 +51,12 @@ public class EventHandler {
         return hit;
     }
 
-    public void teleport(int gameState) {
+    /*public void teleport(int gameState) {
         gp.gameState = gameState;
         gp.ui.currentDialog = "Du teleportierst dich!";
         gp.player.dWorldX = gp.tileSize * 37;
         gp.player.dWorldY = gp.tileSize * 10;
-    }
+    }*/
 
     public void damagePit(int gameState) {
         gp.gameState = gameState;

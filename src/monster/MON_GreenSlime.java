@@ -70,4 +70,35 @@ public class MON_GreenSlime extends Entity {
             actionLockCounter = 0;
         }
     }
+    @Override
+    public void dyingAnimation(Graphics2D g2, int screenX, int screenY) {
+
+        dyingCounter++;
+
+        BufferedImage dyingImage1 = setUp("/monster/slime/slimedeath0");
+        BufferedImage dyingImage2 = setUp("/monster/slime/slimedeath1");
+        BufferedImage dyingImage3 = setUp("/monster/slime/slimedeath2");
+        BufferedImage dyingImage4 = setUp("/monster/slime/slimedeath3");
+        BufferedImage dyingImage5 = setUp("/monster/slime/slimedeath4");
+
+        int i = 10;
+
+        if(dyingCounter <= i) {}
+        if(dyingCounter > i && dyingCounter <= i * 2) {g2.drawImage(dyingImage1, screenX, screenY, gp.tileSize, gp.tileSize, null);}
+        if(dyingCounter > i * 2 && dyingCounter <= i * 3) {g2.drawImage(dyingImage2, screenX, screenY, gp.tileSize, gp.tileSize, null);}
+        if(dyingCounter > i * 3 && dyingCounter <= i * 4) {g2.drawImage(dyingImage3, screenX, screenY, gp.tileSize, gp.tileSize, null);}
+        if(dyingCounter > i * 4 && dyingCounter <= i * 5) {g2.drawImage(dyingImage4, screenX, screenY, gp.tileSize, gp.tileSize, null);}
+        if(dyingCounter > i * 5 && dyingCounter <= i * 8) {g2.drawImage(dyingImage5, screenX, screenY, gp.tileSize, gp.tileSize, null);}
+        if(dyingCounter > i * 8) {
+            dying = false;
+            alive = false;
+        }
+    }
+    @Override
+    public void drawImpact(Graphics2D g2,int screenX,int screenY) {
+
+        BufferedImage impactFrame = setUp("/monster/slime/slime_iframe");
+        g2.drawImage(impactFrame, screenX, screenY, gp.tileSize, gp.tileSize, null);
+
+    }
 }

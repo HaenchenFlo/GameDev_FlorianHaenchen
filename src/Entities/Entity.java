@@ -36,14 +36,18 @@ public class Entity {
     public int hitBoxDefaultX, hitBoxDefaultY;
     public boolean collisionOn = false;
     public boolean collision = false;
-    public boolean invincible = false;
+    boolean invincible = false;
     public boolean attacking = false;
+    public boolean alive = true;
+    public boolean dying = false;
+
 
     //Counter
     public int spriteCounter = 0;
     public int spriteNumber = 1;
     public int actionLockCounter = 0;
     public int invincibleCounter = 0;
+    public int dyingCounter = 0;
 
     //Character Status
     public String name;
@@ -112,7 +116,7 @@ public class Entity {
 
         if (invincible == true) {
             invincibleCounter++;
-            if (invincibleCounter > 80) {
+            if (invincibleCounter > 60) {
                 invincible = false;
                 invincibleCounter = 0;
             }
@@ -153,17 +157,32 @@ public class Entity {
                     break;
 
             }
-            if (invincible == true) {
-                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
-            }
 
-            g2.drawImage(image, screenX, screenY, gp.tileSize,gp.tileSize,null);
+            if(dying == true) {
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+                dyingAnimation(g2,screenX,screenY);
+            } else {
+                if (invincible == true && invincibleCounter <= 20) {
+                    drawImpact(g2,screenX,screenY);
+                } else {
+                    g2.drawImage(image, screenX, screenY, gp.tileSize,gp.tileSize,null);
+                }
+            }
 
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
             //hitbox anzeige
-            g2.drawRect(screenX + hitBox.x, screenY + hitBox.y, hitBox.width, hitBox.height);
+            /*g2.drawRect(screenX + hitBox.x, screenY + hitBox.y, hitBox.width, hitBox.height);*/
 
         }
+    }
+
+    public void dyingAnimation(Graphics2D g2, int screenX, int screenY) {
+        //Überschreiben für jeweilige Monster
+
+    }
+
+    public void drawImpact(Graphics2D g2, int screenX, int screenY) {
+        //Überschreiben für jeweilige Monster
     }
 
     public BufferedImage setUp(String imageName) {
