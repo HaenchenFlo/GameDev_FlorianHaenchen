@@ -18,10 +18,10 @@ public class MON_GreenSlime extends Entity {
         maxHealth = 4;
         health = maxHealth;
 
-        hitBox.x = 16;
+        hitBox.x = 26;
         hitBox.y = 36;
-        hitBox.width = 64;
-        hitBox.height = 60;
+        hitBox.width = 48;
+        hitBox.height = 64;
         hitBoxDefaultX = hitBox.x;
         hitBoxDefaultY = hitBox.y;
 

@@ -251,7 +251,7 @@ public class Player extends Entity {
             spriteNumber = 3;
 
 
-            //curren save
+            //current save
             int currentWorldX = worldX;
             int currentWorldY = worldY;
             int hitBoxWidth = hitBox.width;
@@ -260,10 +260,10 @@ public class Player extends Entity {
 
             //spieler anpassen
             switch (direction) {
-                case "up": worldY -= hitBoxHeight; break;
-                case "down": worldY += hitBoxHeight; break;
-                case "left": worldX -= hitBoxWidth; break;
-                case "right": worldX += hitBoxWidth; break;
+                case "up": worldY -= attackHitBox.height; break;
+                case "down": worldY += attackHitBox.height; break;
+                case "left": worldX -= attackHitBox.width; break;
+                case "right": worldX += attackHitBox.width; break;
 
             }
 
@@ -327,6 +327,7 @@ public class Player extends Entity {
                 gp.monster[i].invincible = true;
 
                 if(gp.monster[i].health <= 0) {
+                    gp.soundEffect(8);
                     gp.monster[i].dying = true;
                 }
             }
@@ -530,7 +531,31 @@ public class Player extends Entity {
         //Reset Alpha
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
-        //hitbox anzeige
-        /*g2.drawRect(screenX + hitBox.x, screenY + hitBox.y, hitBox.width, hitBox.height);*/
+        //Spieler Hitbox anzeige
+        g2.setColor(Color.RED);
+        g2.drawRect(screenX + hitBox.x, screenY + hitBox.y, hitBox.width, hitBox.height);
+
+        // Attack-Hitbox (Schlagbereich)
+        g2.setColor(Color.BLUE);
+
+        int attackBoxX = hitBox.x;
+        int attackBoxY = hitBox.y;
+
+        switch (direction) {
+            case "up":
+                attackBoxY = hitBox.y - attackHitBox.height;
+                break;
+            case "down":
+                attackBoxY = hitBox.y + hitBox.height;
+                break;
+            case "left":
+                attackBoxX = hitBox.x - attackHitBox.width;
+                break;
+            case "right":
+                attackBoxX = hitBox.x + hitBox.width;
+                break;
+        }
+
+        g2.drawRect(screenX + attackBoxX, screenY + attackBoxY, attackHitBox.width, attackHitBox.height);
     }
 }
