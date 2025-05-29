@@ -243,11 +243,11 @@ public class Player extends Entity {
             spriteNumber = 1;
         }
 
-        if(spriteCounter > 5 && spriteCounter <= 25) {
+        if(spriteCounter > 5 && spriteCounter <= 15) {
             spriteNumber = 2;
         }
 
-        if(spriteCounter > 25 && spriteCounter <= 35) {
+        if(spriteCounter > 15 && spriteCounter <= 35) {
             spriteNumber = 3;
 
 
@@ -324,18 +324,17 @@ public class Player extends Entity {
                 gp.soundEffect(6);
                 health -= 1;
                 invincible = true;
-                gp.monster[i].damageReact();
             }
         }
     }
 
     public void damageMonster(int i) {
         if(i != 999) {
-
             if(gp.monster[i].invincible == false) {
                 gp.soundEffect(5);
                 gp.monster[i].health -= 1;
                 gp.monster[i].invincible = true;
+                gp.monster[i].damageReact();
 
                 if(gp.monster[i].health <= 0) {
                     gp.soundEffect(8);
