@@ -260,11 +260,22 @@ public class Player extends Entity {
 
             //spieler anpassen
             switch (direction) {
-                case "up": worldY -= attackHitBox.height; break;
-                case "down": worldY += attackHitBox.height; break;
-                case "left": worldX -= attackHitBox.width; break;
-                case "right": worldX += attackHitBox.width; break;
-
+                case "up":
+                    worldX += (hitBox.width - attackHitBox.width) / 2;
+                    worldY -= attackHitBox.height;
+                    break;
+                case "down":
+                    worldX += (hitBox.width - attackHitBox.width) / 2;
+                    worldY += hitBox.height;
+                    break;
+                case "left":
+                    worldX -= attackHitBox.width;
+                    worldY += (hitBox.height - attackHitBox.height) / 2;
+                    break;
+                case "right":
+                    worldX += hitBox.width;
+                    worldY += (hitBox.height - attackHitBox.height) / 2;
+                    break;
             }
 
             hitBox.width = attackHitBox.width;
@@ -532,30 +543,35 @@ public class Player extends Entity {
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
         //Spieler Hitbox anzeige
-        g2.setColor(Color.RED);
-        g2.drawRect(screenX + hitBox.x, screenY + hitBox.y, hitBox.width, hitBox.height);
+        /*g2.setColor(Color.RED);
+        g2.drawRect(screenX + hitBox.x, screenY + hitBox.y, hitBox.width, hitBox.height);*/
 
         // Attack-Hitbox (Schlagbereich)
-        g2.setColor(Color.BLUE);
+        /*g2.setColor(Color.BLUE);
 
         int attackBoxX = hitBox.x;
         int attackBoxY = hitBox.y;
 
         switch (direction) {
             case "up":
+                attackBoxX = hitBox.x + (hitBox.width - attackHitBox.width) / 2;
                 attackBoxY = hitBox.y - attackHitBox.height;
                 break;
             case "down":
+                attackBoxX = hitBox.x + (hitBox.width - attackHitBox.width) / 2;
                 attackBoxY = hitBox.y + hitBox.height;
                 break;
             case "left":
                 attackBoxX = hitBox.x - attackHitBox.width;
+                attackBoxY = hitBox.y + (hitBox.height - attackHitBox.height) / 2;
                 break;
             case "right":
                 attackBoxX = hitBox.x + hitBox.width;
+                attackBoxY = hitBox.y + (hitBox.height - attackHitBox.height) / 2;
                 break;
         }
 
-        g2.drawRect(screenX + attackBoxX, screenY + attackBoxY, attackHitBox.width, attackHitBox.height);
+
+        g2.drawRect(screenX + attackBoxX, screenY + attackBoxY, attackHitBox.width, attackHitBox.height);*/
     }
 }
