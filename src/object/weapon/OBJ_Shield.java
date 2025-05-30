@@ -8,8 +8,8 @@ public class OBJ_Shield extends Entity {
     public OBJ_Shield(GamePanel gp) {
         super(gp);
 
-        name= "Shield";
+        name = "Shield";
         down1 = setUp("/objects/shield");
-        defenseValue = 1;
+        defenseValue = 2;
     }
 }

@@ -83,7 +83,7 @@ public class Player extends Entity {
     }
 
     public int getDefense() {
-        return defense = dexterity * currentWeapon.defenseValue;
+        return defense = dexterity * offHand.defenseValue;
     }
 
     public void getPlayerImage() {
@@ -318,8 +318,6 @@ public class Player extends Entity {
         }
     }
 
-
-
     public void pickup(int i) {
         if (i != 999) {
 
@@ -339,7 +337,12 @@ public class Player extends Entity {
         if (i != 999) {
             if (invincible == false) {
                 gp.soundEffect(6);
-                health -= 1;
+
+                int damage = gp.monster[i].attack - defense;
+                if(damage < 0) {
+                    damage = 0;
+                }
+                health -= damage;
                 invincible = true;
             }
         }
@@ -349,13 +352,22 @@ public class Player extends Entity {
         if(i != 999) {
             if(gp.monster[i].invincible == false) {
                 gp.soundEffect(5);
-                gp.monster[i].health -= 1;
+
+                int damage = attack - gp.monster[i].defense;
+                if(damage < 0) {
+                    damage = 0;
+                }
+
+                gp.monster[i].health -= damage;
+                gp.ui.addMessage(damage + " Schaden!"); // ggf entfernen
+
                 gp.monster[i].invincible = true;
                 gp.monster[i].damageReact();
 
                 if(gp.monster[i].health <= 0) {
                     gp.soundEffect(8);
                     gp.monster[i].dying = true;
+                    gp.ui.addMessage("test"); //ggf entfernen
                 }
             }
         }
