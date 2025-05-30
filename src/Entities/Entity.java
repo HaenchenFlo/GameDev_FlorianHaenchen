@@ -49,12 +49,28 @@ public class Entity {
     public int invincibleCounter = 0;
     public int dyingCounter = 0;
 
-    //Character Status
+    //Character Stats
     public String name;
     public int type; //O = player , 1 = npc, 2 = gegner
     public int speed;
     public int maxHealth;
     public int health;
+
+    //Character Attribute
+    public int level;
+    public int strength;
+    public int dexterity;
+    public int attack;
+    public int defense;
+    public int exp;
+    public int nextLevelExp;
+    public int coin;
+    public Entity currentWeapon;
+    public Entity offHand;
+
+    //Item Attribute
+    public int attackValue;
+    public int defenseValue;
 
 
 

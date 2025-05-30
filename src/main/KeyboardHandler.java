@@ -26,76 +26,100 @@ public class KeyboardHandler implements KeyListener {
 
         //Titel
         if(gp.gameState == gp.titleState) {
-            if(keyInput == KeyEvent.VK_W) {
-                gp.ui.commandNum--;
-                if(gp.ui.commandNum < 0) {
-                    gp.ui.commandNum = 2;
-                }
-            }
-            if(keyInput == KeyEvent.VK_S) {
-                gp.ui.commandNum++;
-                if(gp.ui.commandNum > 2) {
-                    gp.ui.commandNum = 0;
-                }
-            }
-
-            if(keyInput == KeyEvent.VK_ENTER) {
-                switch(gp.ui.commandNum) {
-                    case 0: gp.gameState = gp.playState;
-                            gp.playMusic(0);
-                            break;
-                    case 1:
-                            break;
-                    case 2: System.exit(0);
-                            break;
-                }
-            }
+            titleState(keyInput);
         }
-
         //player movement
-        if(gp.gameState == gp.playState) {
-            if(keyInput == KeyEvent.VK_W) {
-                upPressed = true;
-            }
-            if(keyInput == KeyEvent.VK_S) {
-                downPressed = true;
-            }
-
-            if(keyInput == KeyEvent.VK_A) {
-                leftPressed = true;
-            }
-
-            if(keyInput == KeyEvent.VK_D) {
-                rightPressed = true;
-            }
-
-            if(keyInput == KeyEvent.VK_P) {
-                gp.gameState = gp.pauseState;
-            }
-            if(keyInput == KeyEvent.VK_ENTER) {
-               enterPressed = true;
-            }
-            if(keyInput == KeyEvent.VK_SPACE && !gp.player.attacking) {
-                gp.player.attacking = true;
-                gp.player.attackCounter = 0;
-                gp.player.attackFrame = 0;
-            }
-
+        else if(gp.gameState == gp.playState) {
+            playState(keyInput);
         }
         //pause
         else if(gp.gameState == gp.pauseState) {
-            if(keyInput == KeyEvent.VK_P) {
-                gp.gameState = gp.playState;
-            }
+            pauseState(keyInput);
         }
         //dialog
         else if(gp.gameState == gp.dialogState) {
-                if(keyInput == KeyEvent.VK_ENTER) {
-                    gp.gameState = gp.playState;
-                }
+            dialogueState(keyInput);
+        }
+        //character state
+        else if (gp.gameState == gp.characterState) {
+            characterState(keyInput);
         }
     }
 
+    public void titleState(int keyInput) {
+        if(keyInput == KeyEvent.VK_W) {
+            gp.ui.commandNum--;
+            if(gp.ui.commandNum < 0) {
+                gp.ui.commandNum = 2;
+            }
+        }
+        if(keyInput == KeyEvent.VK_S) {
+            gp.ui.commandNum++;
+            if(gp.ui.commandNum > 2) {
+                gp.ui.commandNum = 0;
+            }
+        }
+
+        if(keyInput == KeyEvent.VK_ENTER) {
+            switch(gp.ui.commandNum) {
+                case 0: gp.gameState = gp.playState;
+                    gp.playMusic(0);
+                    break;
+                case 1:
+                    break;
+                case 2: System.exit(0);
+                    break;
+            }
+        }
+    }
+    public void playState(int keyInput) {
+        if(keyInput == KeyEvent.VK_W) {
+            upPressed = true;
+        }
+        if(keyInput == KeyEvent.VK_S) {
+            downPressed = true;
+        }
+
+        if(keyInput == KeyEvent.VK_A) {
+            leftPressed = true;
+        }
+
+        if(keyInput == KeyEvent.VK_D) {
+            rightPressed = true;
+        }
+
+        if(keyInput == KeyEvent.VK_P) {
+            gp.gameState = gp.characterState;
+        }
+
+        if(keyInput == KeyEvent.VK_ESCAPE) {
+            gp.gameState = gp.pauseState;
+        }
+
+        if(keyInput == KeyEvent.VK_ENTER) {
+            enterPressed = true;
+        }
+        if(keyInput == KeyEvent.VK_SPACE && !gp.player.attacking) {
+            gp.player.attacking = true;
+            gp.player.attackCounter = 0;
+            gp.player.attackFrame = 0;
+        }
+    }
+    public void pauseState(int keyInput) {
+        if(keyInput == KeyEvent.VK_ESCAPE) {
+            gp.gameState = gp.playState;
+        }
+    }
+    public void dialogueState(int keyInput) {
+        if(keyInput == KeyEvent.VK_ENTER) {
+            gp.gameState = gp.playState;
+        }
+    }
+    public void characterState(int keyInput) {
+        if(keyInput == KeyEvent.VK_P) {
+            gp.gameState = gp.playState;
+        }
+    }
     @Override
     public void keyReleased(KeyEvent e) {
 

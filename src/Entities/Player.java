@@ -2,6 +2,8 @@ package Entities;
 
 import main.GamePanel;
 import main.KeyboardHandler;
+import object.weapon.OBJ_Shield;
+import object.weapon.OBJ_Sword;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -62,11 +64,26 @@ public class Player extends Entity {
         direction = "down";
 
         //Spieler Status
-
+        level = 1;
         maxHealth = 6;
         health = maxHealth;
+        strength = 1;       //stats die mit attack / defense skalieren
+        dexterity = 1;
+        exp = 0;
+        nextLevelExp = 5;
+        coin = 0;
+        currentWeapon = new OBJ_Sword(gp);
+        offHand = new OBJ_Shield(gp);
+        attack = getAttack();
+        defense = getDefense();
+    }
 
+    public int getAttack() {
+        return attack = strength * currentWeapon.attackValue;
+    }
 
+    public int getDefense() {
+        return defense = dexterity * currentWeapon.defenseValue;
     }
 
     public void getPlayerImage() {
