@@ -331,7 +331,6 @@ public class UI {
 
     public int alignRightTextX(String text, int tailX) {
         int length = (int) g2.getFontMetrics().getStringBounds(text,g2).getWidth();
-        int x = tailX - length;
-        return x;
+        return tailX - length;
     }
 }
