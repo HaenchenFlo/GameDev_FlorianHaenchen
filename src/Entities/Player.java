@@ -4,6 +4,7 @@ import main.GamePanel;
 import main.KeyboardHandler;
 import object.weapon.OBJ_Shield;
 import object.weapon.OBJ_Sword;
+import object.weapon.Weapon;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -247,13 +248,19 @@ public class Player extends Entity {
                 }
             }
         }
+        if (currentWeapon instanceof Weapon) {
+            ((Weapon) currentWeapon).updateEffect();
+        }
     }
 
     public void attacking() {
         spriteCounter++;
 
         if(spriteCounter == 1) {
-            gp.soundEffect(7);
+            if(currentWeapon instanceof Weapon) {
+                ((Weapon) currentWeapon).triggerEffekt(worldX,worldY);
+                gp.soundEffect(7);
+            }
         }
 
         if(spriteCounter <= 5) {
@@ -563,6 +570,9 @@ public class Player extends Entity {
         }
         if (invincible == true) {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+        }
+        if (currentWeapon instanceof Weapon) {
+            ((Weapon) currentWeapon).drawEffect(g2);
         }
 
         g2.drawImage(image, tempScreenX, tempScreenY,null);
