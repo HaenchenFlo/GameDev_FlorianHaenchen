@@ -35,6 +35,7 @@ public class GamePanel extends JPanel implements Runnable{
     public CollisionCheck cCheck = new CollisionCheck(this);
     public ObjectHandler oSetter = new ObjectHandler(this);
     public EventHandler eHandler = new EventHandler(this);
+    public MouseHandler mouseH = new MouseHandler(this);
 
     //UI
     public UI ui = new UI(this);
@@ -64,6 +65,8 @@ public class GamePanel extends JPanel implements Runnable{
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
+        this.addMouseListener(mouseH);
+        this.addMouseListener(mouseH);
     }
 
     public void setUpGame() {
