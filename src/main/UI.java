@@ -305,9 +305,9 @@ public class UI {
         textX = alignRightTextX(value,tailX);
         g2.drawString(value,textX,textY); textY += lineHeight;
 
-        g2.drawImage(gp.player.currentWeapon.down1, tailX - gp.tileSize / 2 - gp.tileSize / 4,textY - 45, null);
+        g2.drawImage(gp.player.currentWeapon.icon, tailX - gp.tileSize / 2 - gp.tileSize / 4,textY - 45, null);
         textY += gp.tileSize;
-        g2.drawImage(gp.player.offHand.down1, tailX - gp.tileSize / 2 - gp.tileSize / 4,textY - 45, null);
+        g2.drawImage(gp.player.offHand.icon, tailX - gp.tileSize / 2 - gp.tileSize / 4,textY - 45, null);
     }
 
     public void drawSubWindow(int x, int y, int width, int height) {

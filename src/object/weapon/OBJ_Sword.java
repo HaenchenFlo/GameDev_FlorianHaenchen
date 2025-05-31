@@ -1,15 +1,14 @@
 package object.weapon;
 
-import Entities.Entity;
 import main.GamePanel;
 
-public class OBJ_Sword extends Entity {
+public class OBJ_Sword extends Weapon {
 
     public OBJ_Sword(GamePanel gp) {
         super(gp);
 
         name = "Normal Sword";
-        down1 = setUp("/objects/sword");
+        icon = setUp("/objects/sword");
         attackValue = 1;
     }
 }

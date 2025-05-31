@@ -9,7 +9,7 @@ public class OBJ_Shield extends Entity {
         super(gp);
 
         name = "Shield";
-        down1 = setUp("/objects/shield");
+        icon = setUp("/objects/shield");
         defenseValue = 2;
     }
 }

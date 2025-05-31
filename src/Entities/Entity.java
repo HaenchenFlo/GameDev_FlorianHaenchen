@@ -17,7 +17,7 @@ public class Entity {
     public BufferedImage attackUp1, attackUp2,attackUp3, attackDown1, attackDown2,attackDown3,
             attackLeft1, attackLeft2,attackLeft3,attackRight1, attackRight2, attackRight3 ,
             attackUp4, attackUp5, attackDown4, attackDown5, attackLeft4, attackLeft5, attackRight4, attackRight5;
-    public BufferedImage image, image2,image3;
+    public BufferedImage icon, image, image2,image3;
 
     //Spieler // NPC Hitbox // OBJ Hitbox
     public Rectangle hitBox = new Rectangle(0,0,96,96);
