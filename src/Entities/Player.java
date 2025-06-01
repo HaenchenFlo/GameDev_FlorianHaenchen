@@ -2,12 +2,14 @@ package Entities;
 
 import main.GamePanel;
 import main.KeyboardHandler;
+import object.OBJ_Key;
 import object.weapon.OBJ_Shield;
 import object.weapon.OBJ_Sword;
 import object.weapon.Weapon;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class Player extends Entity {
     KeyboardHandler keyH;
@@ -21,6 +23,8 @@ public class Player extends Entity {
 
     /*public int hasKey = 0;*/
     int standCounter = 0;
+    public ArrayList<Entity> inventory = new ArrayList<>();
+    public final int maxInventorySize = 30;
 
     public Player(GamePanel gp, KeyboardHandler keyboardHandler) {
 
@@ -48,6 +52,7 @@ public class Player extends Entity {
         setDefaultValues();
         getPlayerImage();
         getPlayerAttack();
+        setItems();
     }
 
     public void setDefaultValues() {
@@ -74,6 +79,12 @@ public class Player extends Entity {
         offHand = new OBJ_Shield(gp);
         attack = getAttack();
         defense = getDefense();
+    }
+
+    public void setItems() {
+        inventory.add(currentWeapon);
+        inventory.add(offHand);
+        inventory.add(new OBJ_Key(gp));
     }
 
     public int getAttack() {
