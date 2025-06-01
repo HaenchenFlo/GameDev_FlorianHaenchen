@@ -118,6 +118,31 @@ public class KeyboardHandler implements KeyListener {
         if(keyInput == KeyEvent.VK_P) {
             gp.gameState = gp.playState;
         }
+        if(keyInput == KeyEvent.VK_W) {
+            if(gp.ui.slotRow != 0) {
+                gp.ui.slotRow--;
+                gp.soundEffect(9);
+            }
+        }
+        if(keyInput == KeyEvent.VK_A) {
+            if(gp.ui.slotCol != 0) {
+                gp.ui.slotCol--;
+                gp.soundEffect(9);
+            }
+        }
+        if(keyInput == KeyEvent.VK_S) {
+            if(gp.ui.slotRow != 4) {
+                gp.ui.slotRow++;
+                gp.soundEffect(9);
+            }
+        }
+        if(keyInput == KeyEvent.VK_D) {
+            if(gp.ui.slotCol != 5) {
+                gp.ui.slotCol++;
+                gp.soundEffect(9);
+            }
+        }
+
     }
     @Override
     public void keyReleased(KeyEvent e) {
