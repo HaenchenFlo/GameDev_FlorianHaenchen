@@ -32,27 +32,45 @@ public class OBJ_Sword extends Weapon {
 
     @Override
     public void drawEffect(Graphics2D g2) {
-        if(effectPlaying && effectFrameIndex < effectFrames.size()) {
+        if (effectPlaying && effectFrameIndex < effectFrames.size()) {
             int effectSkalierung = 3;
             int effectSize = gp.tileSize * effectSkalierung;
+
+            // Basisposition berechnen
             int screenX = effectX - gp.player.worldX + gp.player.screenX - (effectSize / effectSkalierung);
             int screenY = effectY - gp.player.worldY + gp.player.screenY - (effectSize / effectSkalierung);
 
+            // Richtungsabhängiger Offset
+            int offset = gp.tileSize / 5;
+            switch (gp.player.direction) {
+                case "up":
+                    screenY -= offset;
+                    screenX -= 20;
+                    break;
+                case "down":
+                    screenY += offset;
+                    screenX += 20;
+                    break;
+                case "left":
+                    screenX -= offset;
+                    screenY += 20;
+                    break;
+                case "right":
+                    screenX += offset;
+                    break;
+            }
 
+            // Bild & Mittelpunkt holen
             BufferedImage frame = effectFrames.get(effectFrameIndex);
-
-            // Mittelpunkt des Bildes
             int centerX = screenX + effectSize / 2;
             int centerY = screenY + effectSize / 2;
 
-            // Rotation abhängig von Spieler-Richtung
+            // Rotation + Zeichnung
             double rotation = getRotationFromDirection(gp.player.direction);
-
-            // Transformation vorbereiten
-            AffineTransform originalTransform = g2.getTransform(); // Zustand speichern
+            AffineTransform originalTransform = g2.getTransform();
             g2.rotate(rotation, centerX, centerY);
             g2.drawImage(frame, screenX, screenY, effectSize, effectSize, null);
-            g2.setTransform(originalTransform); // Zustand zurücksetzen
+            g2.setTransform(originalTransform);
         }
     }
 

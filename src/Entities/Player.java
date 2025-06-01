@@ -46,9 +46,6 @@ public class Player extends Entity {
         hitBox.width = 32;
         hitBox.height = 48;
 
-        attackHitBox.width = 140;
-        attackHitBox.height = 70;
-
         setDefaultValues();
         getPlayerImage();
         getPlayerAttack();
@@ -138,29 +135,10 @@ public class Player extends Entity {
 
     public void getPlayerAttack() {
 
-        attackUp1 = setUp("/player/attack/player_attack_up0", gp.tileSize, gp.tileSize * 2);
-        attackUp2 = setUp("/player/attack/player_attack_up1", gp.tileSize, gp.tileSize * 2);
-        attackUp3 = setUp("/player/attack/player_attack_up2", gp.tileSize, gp.tileSize * 2);
-        attackUp4 = setUp("/player/attack/player_attack_up3", gp.tileSize, gp.tileSize * 2);
-        attackUp5 = setUp("/player/attack/player_attack_up4", gp.tileSize, gp.tileSize * 2);
-
-        attackDown1 = setUp("/player/attack/player_attack_down0", gp.tileSize, gp.tileSize * 2);
-        attackDown2 = setUp("/player/attack/player_attack_down1", gp.tileSize, gp.tileSize * 2);
-        attackDown3 = setUp("/player/attack/player_attack_down2", gp.tileSize, gp.tileSize * 2);
-        attackDown4 = setUp("/player/attack/player_attack_down3", gp.tileSize, gp.tileSize * 2);
-        attackDown5 = setUp("/player/attack/player_attack_down4", gp.tileSize, gp.tileSize * 2);
-
-        attackLeft1 = setUp("/player/attack/player_attack_left0", gp.tileSize * 2, gp.tileSize);
-        attackLeft2 = setUp("/player/attack/player_attack_left1", gp.tileSize * 2, gp.tileSize);
-        attackLeft3 = setUp("/player/attack/player_attack_left2", gp.tileSize * 2, gp.tileSize);
-        attackLeft4 = setUp("/player/attack/player_attack_left3", gp.tileSize * 2, gp.tileSize);
-        attackLeft5 = setUp("/player/attack/player_attack_left4", gp.tileSize * 2, gp.tileSize);
-
-        attackRight1 = setUp("/player/attack/player_attack_right0", gp.tileSize * 2, gp.tileSize);
-        attackRight2 = setUp("/player/attack/player_attack_right1", gp.tileSize * 2, gp.tileSize);
-        attackRight3 = setUp("/player/attack/player_attack_right2", gp.tileSize * 2, gp.tileSize);
-        attackRight4 = setUp("/player/attack/player_attack_right3", gp.tileSize * 2, gp.tileSize);
-        attackRight5 = setUp("/player/attack/player_attack_right4", gp.tileSize * 2, gp.tileSize);
+        attackUp1 = setUp("/player/attack/test_up");
+        attackDown1 = setUp("/player/attack/test_down");
+        attackLeft1 = setUp("/player/attack/test_left");
+        attackRight1 = setUp("/player/attack/test_right");
 
     }
 
@@ -268,25 +246,21 @@ public class Player extends Entity {
     public void attacking() {
         spriteCounter++;
 
-        if(spriteCounter == 1) {
-            if(currentWeapon instanceof Weapon) {
-                ((Weapon) currentWeapon).triggerEffekt(worldX,worldY);
+        if (spriteCounter == 1) {
+            if (currentWeapon instanceof Weapon) {
+                ((Weapon) currentWeapon).triggerEffekt(worldX, worldY);
             }
             gp.soundEffect(7);
         }
-
-        if(spriteCounter <= 5) {
+        if (spriteCounter <= 10) {
             spriteNumber = 1;
+        } else if (spriteCounter <= 12) {
+            spriteNumber = 1;
+        } else if(spriteCounter <= 15) {
+            spriteNumber = 1; // kein Angriffsbild mehr, zurück zur Idle-Animation
+            spriteCounter = 0;
+            attacking = false;
         }
-
-        if(spriteCounter > 5 && spriteCounter <= 15) {
-            spriteNumber = 2;
-        }
-
-        if(spriteCounter > 15 && spriteCounter <= 35) {
-            spriteNumber = 3;
-
-
             // aktuelle Werte speichern
             int currentWorldX = worldX;
             int currentWorldY = worldY;
@@ -295,11 +269,11 @@ public class Player extends Entity {
 
             // attackHitBox anpassen je nach Richtung
             if (direction.equals("up") || direction.equals("down")) {
-                attackHitBox.width = 140;  // Breiter horizontal
-                attackHitBox.height = 70;  // Flacher vertikal
+                attackHitBox.width = gp.tileSize;  // Breiter horizontal
+                attackHitBox.height = gp.tileSize;  // Flacher vertikal
             } else if (direction.equals("left") || direction.equals("right")) {
-                attackHitBox.width = 70;   // Schmal horizontal
-                attackHitBox.height = 140; // Hoch vertikal
+                attackHitBox.width = gp.tileSize;   // Schmal horizontal
+                attackHitBox.height = gp.tileSize; // Hoch vertikal
             }
 
             // Spieler Position und Hitbox anpassen
@@ -334,17 +308,6 @@ public class Player extends Entity {
             worldY = currentWorldY;
             hitBox.width = hitBoxWidth;
             hitBox.height = hitBoxHeight;
-        }
-
-        if(spriteCounter > 35 && spriteCounter <= 45) {
-            spriteNumber = 4;
-        }
-
-        if(spriteCounter > 45) {
-            spriteNumber = 5;
-            spriteCounter = 0;
-            attacking = false;
-        }
     }
 
     public void pickup(int i) {
@@ -410,78 +373,13 @@ public class Player extends Entity {
         BufferedImage image = null;
 
         if (attacking) {
-            switch (direction) {
-                case "up":
-                    tempScreenY = screenY - gp.tileSize;
-                    if (spriteNumber == 1) {
-                        image = attackUp1;
-                    }
-                    if (spriteNumber == 2) {
-                        image = attackUp2;
-                    }
-                    if (spriteNumber == 3) {
-                        image = attackUp3;
-                    }
-                    if (spriteNumber == 4) {
-                        image = attackUp4;
-                    }
-                    if (spriteNumber == 5) {
-                        image = attackUp5;
-                    }
-                    break;
-                case "down":
-                    if (spriteNumber == 1) {
-                        image = attackDown1;
-                    }
-                    if (spriteNumber == 2) {
-                        image = attackDown2;
-                    }
-                    if (spriteNumber == 3) {
-                        image = attackDown3;
-                    }
-                    if (spriteNumber == 4) {
-                        image = attackDown4;
-                    }
-                    if (spriteNumber == 5) {
-                        image = attackDown5;
-                    }
-                    break;
-                case "left":
-                    tempScreenX = screenX - gp.tileSize;
-                    if (spriteNumber == 1) {
-                        image = attackLeft1;
-                    }
-                    if (spriteNumber == 2) {
-                        image = attackLeft2;
-                    }
-                    if (spriteNumber == 3) {
-                        image = attackLeft3;
-                    }
-                    if (spriteNumber == 4) {
-                        image = attackLeft4;
-                    }
-                    if (spriteNumber == 5) {
-                        image = attackLeft5;
-                    }
-                    break;
-                case "right":
-                    if (spriteNumber == 1) {
-                        image = attackRight1;
-                    }
-                    if (spriteNumber == 2) {
-                        image = attackRight2;
-                    }
-                    if (spriteNumber == 3) {
-                        image = attackRight3;
-                    }
-                    if (spriteNumber == 4) {
-                        image = attackRight4;
-                    }
-                    if (spriteNumber == 5) {
-                        image = attackRight5;
-                    }
-                    break;
-            }
+            image = switch (direction) {
+                case "up" -> attackUp1;
+                case "down" -> attackDown1;
+                case "left" -> attackLeft1;
+                case "right" -> attackRight1;
+                default -> image;
+            };
         } else {
             switch (direction) {
                 case "up":
@@ -611,7 +509,7 @@ public class Player extends Entity {
 
 
 
-        /*//Spieler Hitbox anzeige
+        //Spieler Hitbox anzeige
         g2.setColor(Color.RED);
         g2.drawRect(screenX + hitBox.x, screenY + hitBox.y, hitBox.width, hitBox.height);
 
@@ -641,6 +539,6 @@ public class Player extends Entity {
         }
 
 
-        g2.drawRect(screenX + attackBoxX, screenY + attackBoxY, attackHitBox.width, attackHitBox.height);*/
+        g2.drawRect(screenX + attackBoxX, screenY + attackBoxY, attackHitBox.width, attackHitBox.height);
     }
 }
