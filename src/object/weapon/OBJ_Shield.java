@@ -11,5 +11,7 @@ public class OBJ_Shield extends Entity {
         name = "Shield";
         icon = setUp("/objects/shield");
         defenseValue = 2;
+
+        description = "[" + name + "]\nEin altes Schild.";
     }
 }
