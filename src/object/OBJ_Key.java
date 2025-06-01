@@ -15,6 +15,8 @@ public class OBJ_Key extends Entity {
         super(gp);
 
         name = "Key";
-        down1 = setUp("/objects/key");
+        icon = setUp("/objects/key");
+
+        description = "[" + name + "]\nÖffnet Türen.";
     }
 }

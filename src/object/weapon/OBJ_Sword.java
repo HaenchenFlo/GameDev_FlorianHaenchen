@@ -14,6 +14,8 @@ public class OBJ_Sword extends Weapon {
         name = "Normal Sword";
         icon = setUp("/objects/sword");
         attackValue = 1;
+
+        description = "[" + name + "]\nEin altes Schwert.";
     }
 
     @Override

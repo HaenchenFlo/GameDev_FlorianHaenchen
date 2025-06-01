@@ -12,7 +12,7 @@ public class OBJ_Door extends Entity{
         super(gp);
 
         name = "Door";
-        down1 = setUp("/objects/door");
+        icon = setUp("/objects/door");
         collision = true;
 
         hitBox.x = 0;
