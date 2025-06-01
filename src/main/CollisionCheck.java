@@ -2,6 +2,9 @@ package main;
 
 import Entities.Entity;
 
+import java.awt.*;
+import java.util.ArrayList;
+
 public class CollisionCheck {
 
     GamePanel gp;
@@ -168,4 +171,34 @@ public class CollisionCheck {
 
         return contactPlayer;
     }
+
+    public ArrayList<Integer> checkEntities(Entity attacker, Entity[] targets) {
+        ArrayList<Integer> hitIndexes = new ArrayList<>();
+
+        Rectangle attackerArea = new Rectangle(
+                attacker.worldX + attacker.hitBox.x,
+                attacker.worldY + attacker.hitBox.y,
+                attacker.hitBox.width,
+                attacker.hitBox.height
+        );
+
+        for (int i = 0; i < targets.length; i++) {
+            Entity target = targets[i];
+            if (target != null && !target.invincible) {
+                Rectangle targetArea = new Rectangle(
+                        target.worldX + target.hitBox.x,
+                        target.worldY + target.hitBox.y,
+                        target.hitBox.width,
+                        target.hitBox.height
+                );
+
+                if (attackerArea.intersects(targetArea)) {
+                    hitIndexes.add(i);
+                }
+            }
+        }
+
+        return hitIndexes;
+    }
+
 }

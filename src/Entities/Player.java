@@ -300,8 +300,10 @@ public class Player extends Entity {
             hitBox.height = attackHitBox.height;
 
             // Gegnercheck
-            int monsterIndex = gp.cCheck.checkEntity(this, gp.monster);
-            damageMonster(monsterIndex);
+            ArrayList<Integer> hitMonsters = gp.cCheck.checkEntities(this, gp.monster);
+            for (int i : hitMonsters) {
+            damageMonster(i);
+            }
 
             // zurücksetzen
             worldX = currentWorldX;
