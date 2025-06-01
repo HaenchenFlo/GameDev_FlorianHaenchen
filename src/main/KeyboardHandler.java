@@ -101,8 +101,7 @@ public class KeyboardHandler implements KeyListener {
         }
         if(keyInput == KeyEvent.VK_SPACE && !gp.player.attacking) {
             gp.player.attacking = true;
-            gp.player.attackCounter = 0;
-            gp.player.attackFrame = 0;
+            gp.player.spriteCounter = 0;
         }
     }
     public void pauseState(int keyInput) {

@@ -36,7 +36,7 @@ public class Entity {
     public int hitBoxDefaultX, hitBoxDefaultY;
     public boolean collisionOn = false;
     public boolean collision = false;
-    boolean invincible = false;
+    public boolean invincible = false;
     public boolean attacking = false;
     public boolean alive = true;
     public boolean dying = false;
@@ -138,11 +138,7 @@ public class Entity {
         }
 
         if (invincible == true) {
-            invincibleCounter++;
-            if (invincibleCounter > 60) {
-                invincible = false;
-                invincibleCounter = 0;
-            }
+            setInvincible();
         }
     }
 
@@ -185,7 +181,7 @@ public class Entity {
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
                 dyingAnimation(g2,screenX,screenY);
             } else {
-                if (invincible == true && invincibleCounter <= 20) {
+                if (invincible == true && invincibleCounter <= 12) {
                     drawImpact(g2,screenX,screenY);
                 } else {
                     g2.drawImage(image, screenX, screenY, gp.tileSize,gp.tileSize,null);
@@ -206,6 +202,10 @@ public class Entity {
     }
 
     public void drawImpact(Graphics2D g2, int screenX, int screenY) {
+        //Überschreiben für jeweilige Monster
+    }
+
+    public void setInvincible() {
         //Überschreiben für jeweilige Monster
     }
 

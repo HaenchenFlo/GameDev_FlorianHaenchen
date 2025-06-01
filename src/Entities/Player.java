@@ -15,9 +15,6 @@ public class Player extends Entity {
 
     //Angriff
 
-    public int attackCounter = 0;
-    public int attackFrame = 0;
-
 
     public final int screenX;
     public final int screenY;
@@ -45,8 +42,8 @@ public class Player extends Entity {
         hitBox.width = 32;
         hitBox.height = 48;
 
-        attackHitBox.width = 72;
-        attackHitBox.height = 72;
+        attackHitBox.width = 140;
+        attackHitBox.height = 70;
 
         setDefaultValues();
         getPlayerImage();
@@ -241,15 +238,19 @@ public class Player extends Entity {
 
             //I-Frames
             if (invincible == true) {
-                invincibleCounter++;
-                if (invincibleCounter > 120) {
-                    invincible = false;
-                    invincibleCounter = 0;
-                }
+                setInvincible();
             }
         }
         if (currentWeapon instanceof Weapon) {
             ((Weapon) currentWeapon).updateEffect();
+        }
+    }
+
+    public void setInvincible() {
+        invincibleCounter++;
+        if (invincibleCounter > 120) {
+            invincible = false;
+            invincibleCounter = 0;
         }
     }
 
@@ -259,8 +260,8 @@ public class Player extends Entity {
         if(spriteCounter == 1) {
             if(currentWeapon instanceof Weapon) {
                 ((Weapon) currentWeapon).triggerEffekt(worldX,worldY);
-                gp.soundEffect(7);
             }
+            gp.soundEffect(7);
         }
 
         if(spriteCounter <= 5) {
@@ -275,14 +276,22 @@ public class Player extends Entity {
             spriteNumber = 3;
 
 
-            //current save
+            // aktuelle Werte speichern
             int currentWorldX = worldX;
             int currentWorldY = worldY;
             int hitBoxWidth = hitBox.width;
             int hitBoxHeight = hitBox.height;
 
+            // attackHitBox anpassen je nach Richtung
+            if (direction.equals("up") || direction.equals("down")) {
+                attackHitBox.width = 140;  // Breiter horizontal
+                attackHitBox.height = 70;  // Flacher vertikal
+            } else if (direction.equals("left") || direction.equals("right")) {
+                attackHitBox.width = 70;   // Schmal horizontal
+                attackHitBox.height = 140; // Hoch vertikal
+            }
 
-            //spieler anpassen
+            // Spieler Position und Hitbox anpassen
             switch (direction) {
                 case "up":
                     worldX += (hitBox.width - attackHitBox.width) / 2;
@@ -304,10 +313,12 @@ public class Player extends Entity {
 
             hitBox.width = attackHitBox.width;
             hitBox.height = attackHitBox.height;
-            // gegner Check
+
+            // Gegnercheck
             int monsterIndex = gp.cCheck.checkEntity(this, gp.monster);
             damageMonster(monsterIndex);
 
+            // zurücksetzen
             worldX = currentWorldX;
             worldY = currentWorldY;
             hitBox.width = hitBoxWidth;
@@ -571,21 +582,30 @@ public class Player extends Entity {
         if (invincible == true) {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
         }
+
+        g2.drawImage(image, tempScreenX, tempScreenY,null);
+
         if (currentWeapon instanceof Weapon) {
             ((Weapon) currentWeapon).drawEffect(g2);
         }
 
-        g2.drawImage(image, tempScreenX, tempScreenY,null);
-
         //Reset Alpha
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
-        //Spieler Hitbox anzeige
-        /*g2.setColor(Color.RED);
-        g2.drawRect(screenX + hitBox.x, screenY + hitBox.y, hitBox.width, hitBox.height);*/
+
+
+
+        //DEBUG
+
+
+
+
+        /*//Spieler Hitbox anzeige
+        g2.setColor(Color.RED);
+        g2.drawRect(screenX + hitBox.x, screenY + hitBox.y, hitBox.width, hitBox.height);
 
         // Attack-Hitbox (Schlagbereich)
-        /*g2.setColor(Color.BLUE);
+        g2.setColor(Color.BLUE);
 
         int attackBoxX = hitBox.x;
         int attackBoxY = hitBox.y;

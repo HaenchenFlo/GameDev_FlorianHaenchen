@@ -13,7 +13,7 @@ public abstract class Weapon extends Entity {
     public List<BufferedImage> effectFrames = new ArrayList<>();
     public List<Integer> effectFrameDurations = new ArrayList<>();
     public int effectFrameIndex = 0;
-    public int effectFrameDelay = 5;
+    public int effectFrameDelay = 5; // für default animationen
     public int effectCounter = 0;
     public boolean effectPlaying = false;
     public int effectX, effectY;
@@ -26,18 +26,19 @@ public abstract class Weapon extends Entity {
     protected abstract void loadEffectFrames();
 
     public void triggerEffekt(int x, int y) {
-        effectPlaying = true;
-        effectFrameIndex = 0;
-        effectCounter = 0;
-        effectX = x;
-        effectY = y;
+        if (!effectPlaying) {
+            effectX = x;
+            effectY = y;
+            effectPlaying = true;
+            effectFrameIndex = 0;
+        }
     }
 
     public void updateEffect() {
         if(effectPlaying) {
             effectCounter++;
 
-            int currentFrameDelay = effectFrameDurations.get(effectFrameIndex); // falss die frames länger / langsamer gehen sollten
+            int currentFrameDelay = effectFrameDurations.get(effectFrameIndex); // falls die frames länger / langsamer gehen sollten
 
             if(effectCounter >= currentFrameDelay) {
                 effectFrameIndex++;
@@ -51,4 +52,6 @@ public abstract class Weapon extends Entity {
     }
 
     public abstract void drawEffect(Graphics2D g2);
+
+    public abstract void drawWeapon(Graphics2D g2);
 }

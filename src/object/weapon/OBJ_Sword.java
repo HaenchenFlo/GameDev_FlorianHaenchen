@@ -21,7 +21,7 @@ public class OBJ_Sword extends Weapon {
         for(int i = 0; i < 4; i++) {
             effectFrames.add(setUp("/weapons/sword/effects/slash_" + i,gp.tileSize * 3,gp.tileSize * 3));
             if(i == 1) {
-                effectFrameDurations.add(10);
+                effectFrameDurations.add(5);
             } else {
                 effectFrameDurations.add(5);
             }
@@ -53,6 +53,12 @@ public class OBJ_Sword extends Weapon {
             g2.setTransform(originalTransform); // Zustand zurücksetzen
         }
     }
+
+    @Override
+    public void drawWeapon(Graphics2D g2) {
+        
+    }
+
     private double getRotationFromDirection(String direction) {
         switch (direction) {
             case "right": return 0;

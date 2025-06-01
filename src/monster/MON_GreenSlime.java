@@ -109,4 +109,12 @@ public class MON_GreenSlime extends Entity {
         actionLockCounter = 0;
         direction = gp.player.direction;
     }
+
+    public void setInvincible() {
+        invincibleCounter++;
+        if (invincibleCounter > 20) {
+            invincible = false;
+            invincibleCounter = 0;
+        }
+    }
 }
