@@ -17,6 +17,7 @@ public abstract class Weapon extends Entity {
     public int effectCounter = 0;
     public boolean effectPlaying = false;
     public int effectX, effectY;
+    public double attackCooldown;
 
     public Weapon(GamePanel gp) {
         super(gp);

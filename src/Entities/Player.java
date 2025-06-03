@@ -494,7 +494,7 @@ public class Player extends Entity {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
         }
 
-        g2.drawImage(image, tempScreenX, tempScreenY,null);
+        g2.drawImage(image, tempScreenX, tempScreenY,null); // @todo draw lower Body zuerst dann weapon dann upper Body  -- >>> ändern mit drawWeapon() einfügen und den spieler anders drawen !!!
 
         if (currentWeapon instanceof Weapon) {
             ((Weapon) currentWeapon).drawEffect(g2);

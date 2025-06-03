@@ -14,6 +14,7 @@ public class OBJ_Sword extends Weapon {
         name = "Normal Sword";
         icon = setUp("/objects/sword");
         attackValue = 1;
+        attackCooldown = 5; // spätere implementierung von Hit Cooldown
 
         description = "[" + name + "]\nEin altes Schwert.";
     }
@@ -22,11 +23,7 @@ public class OBJ_Sword extends Weapon {
     protected void loadEffectFrames() {
         for(int i = 0; i < 4; i++) {
             effectFrames.add(setUp("/weapons/sword/effects/slash_" + i,gp.tileSize * 3,gp.tileSize * 3));
-            if(i == 1) {
-                effectFrameDurations.add(5);
-            } else {
-                effectFrameDurations.add(5);
-            }
+            effectFrameDurations.add(6);
         }
     }
 
