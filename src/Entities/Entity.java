@@ -175,7 +175,11 @@ public class Entity {
                     if(spriteNumber == 2) {image = right2;}
                     if(spriteNumber == 3) {image = right3;}
                     break;
+            }
 
+            // Wenn nix gesetzt wurde, fallback auf image/icon --> I.d.R für Items
+            if (image == null && icon != null) {
+                image = icon;
             }
 
             if(dying == true) {
@@ -190,6 +194,8 @@ public class Entity {
             }
 
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+
             //hitbox anzeige
             g2.setColor(Color.RED);
             g2.drawRect(screenX + hitBox.x, screenY + hitBox.y, hitBox.width, hitBox.height);
